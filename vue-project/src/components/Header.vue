@@ -26,18 +26,25 @@
     top: 10px
   }
   header {
-    background-color: green;
-    color: white;
-    height: 110px;
-    width: 100%;
-    
-  }
+  background-color: white;
+  height: 110px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 200px;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif; /* Changer la police d'écriture */
+  font-size: 30px;
 
+}
   
   header nav ul {
+    display: flex;
     list-style-type: none;
     padding: 0;
     margin: 0; /* Enlevez la marge par défaut pour les listes */
+    gap: 40px
+    
   }
   
   header nav ul li {
@@ -47,9 +54,14 @@
   }
   
   header nav ul li a {
-    color: white;
+    color: black;
     text-decoration: none;
   }
+
+  li :hover{
+    color: rgb(0, 233, 78);
+  }
+  
   
   header nav ul li a:hover {
     text-decoration: underline;
