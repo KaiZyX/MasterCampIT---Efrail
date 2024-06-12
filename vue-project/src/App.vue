@@ -1,30 +1,31 @@
 <!-- src/App.vue -->
 <template>
   <div id="app">
-    <TrainList @train-selected="trainSelected" />
-    <TrainDetail :train="selectedTrain" />
+    <Header /> <!-- Ajout du Header ici -->
+    <main>
+      
+      
+    </main>
   </div>
 </template>
 
 <script>
+import Header from './components/Header.vue'; // Import du composant Header
 import TrainList from './components/TrainList.vue';
-import TrainDetail from './components/TrainDetail.vue';
+
 
 export default {
   name: 'App',
   components: {
+    Header, // Enregistrement du composant Header
     TrainList,
-    TrainDetail
+    
   },
   data() {
-    return {
-      selectedTrain: null
-    };
+    return 
   },
   methods: {
-    trainSelected(train) {
-      this.selectedTrain = train;
-    }
+    
   }
 };
 </script>
@@ -38,4 +39,5 @@ body {
 #app {
   text-align: center;
 }
+
 </style>
