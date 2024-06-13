@@ -1,70 +1,75 @@
 <template>
-    <header>
+  <header>
       <nav>
-        <div class="logo">
-          <img src="@/assets/logo.png" height="90px" alt="Logo"  />
-        </div>
-        <ul>
-          <li><a href="#">Accueil</a></li>
-          <li><a href="#">À propos</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
+          <div class="logo">
+              <img src="@/assets/logo.png" height="90px" alt="Logo" />
+          </div>
+          <ul>
+              <li><a href="#">Accueil</a></li>
+              <li><a href="#">À propos</a></li>
+              <li><a href="#">Contact</a></li>
+              <!-- Ajout du bouton Découvrir -->
+              <li><a href="#">Découvrir</a></li>
+          </ul>
       </nav>
-    </header>
-  </template>
-  
-  <script>
- 
-  </script>
-  
+  </header>
+</template>
 
-  <style scoped>
-
-  .logo{
-    position: absolute;
-    left : 40px;
-    top: 10px
-  }
-  header {
-  background-color: white;
-  height: 110px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 200px;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif; /* Changer la police d'écriture */
-  font-size: 30px;
-
+<script>
+export default {
+  // Votre script ici
 }
-  
-  header nav ul {
-    display: flex;
-    list-style-type: none;
-    padding: 0;
-    margin: 0; /* Enlevez la marge par défaut pour les listes */
-    gap: 40px
-    
-  }
-  
-  header nav ul li {
-    display: inline;
-    margin-right: 10px;
-    position : center;
-  }
-  
-  header nav ul li a {
-    color: black;
-    text-decoration: none;
-  }
+</script>
 
-  li :hover{
-    color: rgb(0, 233, 78);
-  }
-  
-  
-  header nav ul li a:hover {
-    text-decoration: underline;
-  }
-  </style>
-  
+<style scoped>
+/* Vos styles CSS ici */
+header {
+  background-color: #333; /* Changer la couleur de fond */
+  padding: 20px 0; /* Ajouter un peu d'espace autour du header */
+}
+
+.logo img {
+  height: 70px; /* Réduire un peu la taille du logo */
+}
+
+nav {
+  display: flex;
+  justify-content: space-between; /* Aligner le logo à gauche et les liens à droite */
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li:last-child {
+  margin-right: 0; /* Supprimer la marge du dernier élément */
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s; /* Ajouter une transition pour les liens */
+}
+
+nav ul li a:hover {
+  color: #a04545; /* Changer la couleur au survol */
+}
+
+nav ul li:last-child a {
+  background-color: #4CAF50;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+nav ul li:last-child a:hover {
+  background-color: #a04545;
+}
+</style>
