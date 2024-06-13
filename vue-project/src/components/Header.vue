@@ -3,6 +3,7 @@
       <nav>
           <div class="logo">
               <img src="@/assets/logo.png" height="90px" alt="Logo" />
+              
           </div>
           <ul>
               <li><a href="#">Accueil</a></li>
@@ -61,7 +62,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #a04545; /* Changer la couleur au survol */
+  color: red; /* Changer la couleur au survol */
 }
 
 nav ul li:last-child a {
@@ -71,6 +72,6 @@ nav ul li:last-child a {
 }
 
 nav ul li:last-child a:hover {
-  background-color: #a04545;
+  background-color: #f2f3f4;
 }
 </style>
