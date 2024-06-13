@@ -6,10 +6,11 @@
               
           </div>
           <ul>
+              <div class = "nom">EFREISH</div>
               <li><a href="#">Accueil</a></li>
               <li><a href="#">À propos</a></li>
               <li><a href="#">Contact</a></li>
-              <!-- Ajout du bouton Découvrir -->
+            
               <li><a href="#">Découvrir</a></li>
           </ul>
       </nav>
@@ -26,7 +27,8 @@ export default {
 /* Vos styles CSS ici */
 header {
   background-color: #333; 
-  padding: 20px 0; 
+  padding: 20px 0;
+  font-size: 20px; 
 }
 
 .logo img {
@@ -61,6 +63,9 @@ nav ul li a {
   transition: color 0.3s; /* Ajouter une transition pour les liens */
 }
 
+
+
+
 nav ul li a:hover {
   color: red; /* Changer la couleur au survol */
 }
@@ -74,4 +79,21 @@ nav ul li:last-child a {
 nav ul li:last-child a:hover {
   background-color: #f2f3f4;
 }
+
+.nom{
+
+  color: white;
+  text-decoration: none;
+  margin-right: 650px;
+          
+  
+}
+
+.nom:hover {
+  color: red; /* Changer la couleur au survol */
+}
+         
+  
+
+
 </style>
