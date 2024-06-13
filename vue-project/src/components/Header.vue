@@ -24,12 +24,13 @@ export default {
 <style scoped>
 /* Vos styles CSS ici */
 header {
-  background-color: #333; /* Changer la couleur de fond */
-  padding: 20px 0; /* Ajouter un peu d'espace autour du header */
+  background-color: #333; 
+  padding: 20px 0; 
 }
 
 .logo img {
-  height: 70px; /* Réduire un peu la taille du logo */
+  height: 70px;
+  padding-left: 10px; 
 }
 
 nav {

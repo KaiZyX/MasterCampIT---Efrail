@@ -4,14 +4,18 @@
     <Header /> <!-- Ajout du Header ici -->
     <main>
       
-      
+      <TrainList></TrainList>
     </main>
+    <Footer></Footer>
   </div>
+  
 </template>
 
 <script>
 import Header from './components/Header.vue'; // Import du composant Header
 import TrainList from './components/TrainList.vue';
+import Nav from './components/Nav.vue';
+import Footer from './components/Footer.vue';
 
 
 export default {
@@ -19,6 +23,8 @@ export default {
   components: {
     Header, // Enregistrement du composant Header
     TrainList,
+    Nav,
+    Footer,
     
   },
   data() {
