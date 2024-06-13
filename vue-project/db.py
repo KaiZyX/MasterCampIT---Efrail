@@ -37,6 +37,8 @@ try:
                                    (num_sommet1, num_sommet2, temps_en_secondes))
         db.commit()
 
+        inserted_stations = set()
+
         with open('../Version1/pospoints.txt', 'r', encoding='utf-8') as file:
             for line in file:
                 line = line.strip()
@@ -47,14 +49,18 @@ try:
                     pointy = int(parts[1])
                     station_name = parts[2]
 
-                    cursor.execute(
-                        "INSERT INTO Pospoints (pointx, pointy, station_name) VALUES (%s, %s, %s)",
-                        (pointx, pointy, station_name)
-                    )
+                    # Vérifier si la station a déjà été insérée
+                    if station_name not in inserted_stations:
+                        cursor.execute(
+                            "INSERT INTO Pospoints (pointx, pointy, station_name) VALUES (%s, %s, %s)",
+                            (pointx, pointy, station_name)
+                        )
+                        inserted_stations.add(station_name)
+                    else:
+                        print(f"Skipping duplicate station: {station_name}")
                 else:
                     print(f"Skipping line due to unexpected format: {line}")
         db.commit()
-
 
 finally:
     db.close()
