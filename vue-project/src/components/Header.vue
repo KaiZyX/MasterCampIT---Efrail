@@ -28,12 +28,12 @@ export default {
 header {
   background-color: #333; 
   padding: 20px 0;
-  font-size: 20px; 
+  font-size: 25px; 
 }
 
 .logo img {
-  height: 70px;
-  padding-left: 10px; 
+  height: 90px;
+  padding-left: 40px; 
 }
 
 nav {
@@ -51,6 +51,7 @@ nav ul {
 
 nav ul li {
   margin-right: 20px;
+  
 }
 
 nav ul li:last-child {
@@ -84,7 +85,8 @@ nav ul li:last-child a:hover {
 
   color: white;
   text-decoration: none;
-  margin-right: 650px;
+  margin-right: 500px;
+  text-align: center;
           
   
 }

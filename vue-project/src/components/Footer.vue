@@ -1,190 +1,142 @@
 <template>
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="footer-column">
-            <h4 class="title">About us</h4>
-            <ul class="ulFooter">
-              <li class="li-footer"><a class="linkFooter" href="#">Nous sommes passionée de train !</a></li>
-            </ul>
-          </div>
-          <div class="footer-column localisation">
-            <h4 class="title">Our Localisation</h4>
-            <ul class="ulFooter">
-              <li class="li-footer"><a class="linkFooter" href="#">France, 4 rue Karl Marx</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4 class="title">Contact us</h4>
-            <ul class="ulFooter">
-              <li class="li-footer"><a class="linkFooter" href="#">Efrail@gmail.com</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4 class="title">Follow us</h4>
-            <div class="Social-networks">
-              <a class="Social-icon" href="#"><i class="fab fa-facebook-f"></i></a>
-              <a class="Social-icon" href="#"><i class="fab fa-instagram"></i></a>
-              <a class="Social-icon" href="#"><i class="fab fa-snapchat"></i></a>
-              <a class="Social-icon" href="#"><i class="fab fa-tiktok"></i></a>
-            </div>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="footer-column">
+          <h4 class="title">A propos de nous</h4>
+          <ul class="ulFooter">
+            <li class="li-footer"><a class="linkFooter" href="#">Nous sommes passionnés de trains !</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="title">Notre location</h4>
+          <ul class="ulFooter">
+            <li class="li-footer"><a class="linkFooter" href="#">France, 4 rue Karl Marx</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="title">Contacter nous ;) !!</h4>
+          <ul class="ulFooter">
+            <li class="li-footer"><a class="linkFooter" href="#">Efrail@gmail.com</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4 class="title">Follow us</h4>
+          <div class="Social-networks">
+            <a class="Social-icon" href="#"><font-awesome-icon :icon="['fab', 'facebook-f']" /></a>
+      <a class="Social-icon" href="#"><font-awesome-icon :icon="['fab', 'instagram']" /></a>
+      <a class="Social-icon" href="#"><font-awesome-icon :icon="['fab', 'snapchat']" /></a>
+      <a class="Social-icon" href="#"><font-awesome-icon :icon="['fab', 'tiktok']" /></a>
           </div>
         </div>
       </div>
-    </footer>
-  </template>
-  
-  <script setup>
-  </script>
-  
-  <style scoped>
+    </div>
+  </footer>
+</template>
+
+<script setup>
+</script>
+
+<style scoped>
+  /* Reset des listes et styles de base */
   li {
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
   
   footer {
     background-color: #333;
-    padding-top: 3%;
+    padding: 30px 0;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
   }
   
   .container {
-    max-width: 100%;
+    width: 90%;
+    margin: 0 auto;
+    
   }
   
   .row {
     display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Espacement entre les colonnes */
   }
   
   .footer-column {
-    width: 25%;
-    padding: 0 5%;
+    flex: 1; /* Chaque colonne prend une part égale de l'espace disponible */
+    padding: 0 15px;
   }
   
   .title {
-    width: 100%;
-    font-size: 12px;
-    color: #F5F7F8;
-    text-transform: capitalize;
-    margin-bottom: 15%;
-    font-weight: 500;
+    font-size: 25px;
+    font-weight: bold;
     position: relative;
+    margin-bottom: 15px;
   }
   
-  .footer-column h4::before {
+  .title::before {
     content: '';
     position: absolute;
     left: 0;
-    bottom: -10px;
-    background-color: red;
+    bottom: -5px;
+    width: 30px;
     height: 2px;
-    width: 40px;
-    box-sizing: border-box;
-  }
-  
-  body {
-    line-height: 1.2;
-    font-family: 'Poppins', sans-serif;
-    font-size: 12px;
-  }
-  
-  .li-footer {
-    width: 100%;
-    font-size: 12px;
-    margin-top: 5px;
-    margin-left: -3px;
+    background-color: red; /* Ligne sous le titre */
   }
   
   .ulFooter {
-    width: 100%;
+    margin-top: 10px;
   }
   
-  .Social-networks {
-    width: 100%;
-  }
-  
-  .Social-icon {
-    display: inline-block;
-    border-radius: 50%;
-    background-color: red;
-    height: 24px;
-    width: 24px;
-    margin-right: 8px;
-    margin-top: 5px;
-    color: #F5F7F8;
-    text-align: center;
-    line-height: 22px;
-  }
-  
-  .fab {
-    font-size: 12px;
-  }
-  
-  .Social-icon:hover {
-    color: #333;
+  .li-footer {
+    font-size: 18px;
+    margin-bottom: 5px;
+    margin-top: 60px;
   }
   
   .linkFooter {
+    color: #fff;
     text-decoration: none;
-    color: grey;
-    transition: all 0.4s ease;
+    transition: color 0.3s;
   }
   
   .linkFooter:hover {
-    padding-left: 10px;
     color: red;
   }
   
-  @media (min-width: 768px) {
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-    }
+  .Social-networks {
+    display: flex;
+    gap: 10px; /* Espacement entre les icônes */
+    margin-top: 30px;
+    margin-left: 100px;
+  }
   
-    .li-footer {
-      font-size: 19px;
-    }
+  .Social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: red;
+    color: #fff;
+    font-size: 20px;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    margin-top: 20px;
+  }
   
-    .title {
-      width: 100%;
-      font-size: 20px;
-      color: #F5F7F8;
-      text-transform: capitalize;
-      margin-bottom: 15%;
-      font-weight: 500;
-      position: relative;
-    }
-  
-    .Social-networks {
-      width: 100%;
-    }
-  
-    .Social-icon {
-      display: inline-block;
-      border-radius: 50%;
-      background-color: red;
-      height: 40px;
-      width: 40px;
-      margin-right: 8px;
-      margin-top: -6px;
-      margin-bottom: 10px;
-      color: white;
-      text-align: center;
-      line-height: 45px;
-    }
-  
-    .fab {
-      font-size: 20px;
-    }
-  
-    .footer-column h4::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -10px;
-      background-color: red;
-      width: 60px;
-      box-sizing: border-box;
+  .Social-icon:hover {
+    background-color: #fff;
+    color: red;
+  }
+
+  @media (max-width: 768px) {
+    .footer-column {
+      flex: 1 1 100%; /* Colonnes pleine largeur sur petit écran */
+      margin-bottom: 20px;
     }
   }
-  </style>
-  
+</style>
