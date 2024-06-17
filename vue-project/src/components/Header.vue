@@ -6,12 +6,14 @@
               
           </div>
           <ul>
-              <div class = "nom">EFREISH</div>
+              <div class = "nom">EFRAIL</div>
               <li><a href="#">Accueil</a></li>
               <li><a href="#">À propos</a></li>
               <li><a href="#">Contact</a></li>
             
-              <li><a href="#">Découvrir</a></li>
+              
+                <li><a href="#">Découvrir</a></li>
+          
           </ul>
       </nav>
   </header>
@@ -25,8 +27,10 @@ export default {
 
 <style scoped>
 /* Vos styles CSS ici */
+
+
 header {
-  background-color: #333; 
+  background-color: #A7C7E7; 
   padding: 20px 0;
   font-size: 25px; 
 }
@@ -59,7 +63,7 @@ nav ul li:last-child {
 }
 
 nav ul li a {
-  color: white;
+  color: black;
   text-decoration: none;
   transition: color 0.3s; /* Ajouter une transition pour les liens */
 }
@@ -68,22 +72,23 @@ nav ul li a {
 
 
 nav ul li a:hover {
-  color: red; /* Changer la couleur au survol */
+  color: white; /* Changer la couleur au survol */
 }
 
 nav ul li:last-child a {
-  background-color: #4CAF50;
+  background-color:white;
   padding: 10px 20px;
   border-radius: 5px;
 }
 
 nav ul li:last-child a:hover {
-  background-color: #f2f3f4;
+  background-color: white;
 }
+
 
 .nom{
 
-  color: white;
+  color: black;
   text-decoration: none;
   margin-right: 500px;
   text-align: center;
@@ -92,7 +97,7 @@ nav ul li:last-child a:hover {
 }
 
 .nom:hover {
-  color: red; /* Changer la couleur au survol */
+  color:white /* Changer la couleur au survol */
 }
          
   

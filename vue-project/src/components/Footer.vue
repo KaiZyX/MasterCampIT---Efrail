@@ -83,7 +83,7 @@
     bottom: -5px;
     width: 30px;
     height: 2px;
-    background-color: red; /* Ligne sous le titre */
+    background-color:  #A7C7E7; /* Ligne sous le titre */
   }
   
   .ulFooter {
@@ -103,7 +103,8 @@
   }
   
   .linkFooter:hover {
-    color: red;
+    color: #A7C7E7;
+  
   }
   
   .Social-networks {
@@ -120,7 +121,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: red;
+    background-color: #A7C7E7;
     color: #fff;
     font-size: 20px;
     transition: background-color 0.3s, color 0.3s;
@@ -130,7 +131,7 @@
   
   .Social-icon:hover {
     background-color: #fff;
-    color: red;
+    color: #A7C7E7;
   }
 
   @media (max-width: 768px) {

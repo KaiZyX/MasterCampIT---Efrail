@@ -1,12 +1,16 @@
 import bootstrap from 'bootstrap'
 
 <template>
-  
-  
-  <div class ="ok">
-Efreail vous propose de nombreux outils
+  <p> </p>
+  <div class = "fond">
+  <div class = "text">
 
-  </div>
+
+  <strong>Efrail vous propose de nombreux avantages détaillé si dessous</strong> 
+
+</div>
+  <p></p>
+  
 
 
 
@@ -18,14 +22,14 @@ Efreail vous propose de nombreux outils
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="@/assets/train3.png"  class="d-block w-100" alt="...">
+      <img src="@/assets/train1.png"  class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
+        <h5></h5>
         <p>Some representative placeholder content for the first slide.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="@/assets/train2.png"  class="d-block w-100" alt="...">
+      <img src="@/assets/train1.png"  class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>Second slide label</h5>
         <p>Some representative placeholder content for the second slide.</p>
@@ -47,15 +51,39 @@ Efreail vous propose de nombreux outils
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
-</div>  
+  <p>
+  </p>
+  <div class="home">
+    <h1>Welcome to the Home Page</h1>
+    <button @click="navigateToMap">Go to Map</button>
+  </div>
   
+</div>  
+</div>
 
 
 
 </template>
 
 <style>
+.text{
+  font-size: 25px;
+}
+.carousel-control-prev{
+  background-color: #A7C7E7;
+  
+}
 
+.carousel-control-prev-icon{
+  background-color:  #A7C7E7;
+}
+.carousel-control-next-icon{
+  background-color:  #A7C7E7;
+
+}
+.carousel-control-next{
+  background-color:#A7C7E7;
+}
 .carousel-inner {
     max-width: 500px; /* Ajustez la largeur selon vos besoins */
     margin: 0 auto; /* Centre le carrousel horizontalement */
@@ -67,4 +95,19 @@ Efreail vous propose de nombreux outils
   font-size: 25px;
 }
 
+.fond{
+  background-color: white;
+}
 </style>
+
+<script>
+
+export default {
+  name: 'TrainList',
+  methods: {
+    navigateToMap() {
+      this.$router.push({ name: 'Map' });
+    }
+  }
+}
+</script>
