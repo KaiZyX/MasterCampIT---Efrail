@@ -1,9 +1,10 @@
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, current_app
 import pymysql
 import matplotlib.pyplot as plt
 import io
 from flask import send_from_directory
 import os
+import pymysql.cursors
 
 app = Flask(__name__)
 
@@ -14,15 +15,7 @@ def home():
 
 
 def get_db_connection():
-    connection = pymysql.connect(
-        host="localhost",
-        user="root",
-        password="louka",
-        database="metro",
-        charset='utf8mb4',
-        cursorclass=pymysql.cursors.DictCursor
-    )
-    return connection
+    return pymysql.connect(host='localhost', user='root', password='louka', db='metro')
 
 @app.route('/api/stations', methods=['GET'])
 def get_stations():
@@ -44,33 +37,52 @@ def get_connections():
 
 @app.route('/api/map', methods=['GET'])
 def get_map():
-    connection = get_db_connection()
-    with connection.cursor() as cursor:
-        cursor.execute('SELECT pointx, pointy, station_name FROM Pospoints')
-        points = cursor.fetchall()
-    connection.close()
+    db_connection = None  # Assurez-vous que connection est définie avant le bloc try
+    try:
+        db_connection = get_db_connection()
+        with db_connection.cursor() as cursor:
+            cursor.execute("SELECT pointx, pointy, station_name FROM Pospoints")
+            points = cursor.fetchall()
 
-    # Créer une figure avec un fond noir
-    fig, ax = plt.subplots()
-    fig.patch.set_facecolor('black')
-    ax.set_facecolor('black')
+            cursor.execute('''
+                SELECT 
+                    A.pointx AS x1, A.pointy AS y1, 
+                    B.pointx AS x2, B.pointy AS y2
+                FROM 
+                    Aretes C
+                    JOIN Pospoints A ON FIND_IN_SET(C.num_sommet1, A.station_ids)
+                    JOIN Pospoints B ON FIND_IN_SET(C.num_sommet2, B.station_ids);
+            ''')
+            connections = cursor.fetchall()
 
-    # Ajouter les points
-    for point in points:
-        ax.plot(point['pointx'], point['pointy'], 'ro')  # 'ro' pour les points rouges
+        # Dessin des points et des connexions
+        fig, ax = plt.subplots()
+        fig.patch.set_facecolor('black')
+        ax.set_facecolor('black')
 
-    # Supprimer les axes
-    ax.axis('off')
+        x_points = [point[0] for point in points]  # Supposons que 'pointx' est la première colonne
+        y_points = [point[1] for point in points]  # Supposons que 'pointy' est la deuxième colonne
 
-    # Sauvegarder l'image dans un buffer
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    plt.close(fig)
+        for connection in connections:
+            ax.plot([connection[0], connection[2]], [connection[1], connection[3]], color='white')  # Ajustez les indices selon l'ordre des colonnes
 
-    return send_file(buf, mimetype='image/png')
+        ax.axis('off')
+
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', bbox_inches='tight')
+        buf.seek(0)
+        plt.close(fig)
+
+        return send_file(buf, mimetype='image/png')
+    
+    except Exception as e:
+        current_app.logger.error("Erreur: %s", e)
+        return jsonify({'error': str(e)}), 500
+    finally:
+        if db_connection:
+            db_connection.close()
+
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 

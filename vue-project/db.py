@@ -16,8 +16,14 @@ try:
         with open('../Version1/metro.txt', 'r', encoding='utf-8') as file:
             for line in file:
                 if line.startswith('V '):
+                    
+                    if line.startswith('V 0000'):  # Cas spécifique pour le numéro de sommet "0000"
+                        line = 'V 0' + line[6:]
+                    else:
+                        line = line[:2] + line[2:].lstrip('0')  # Comportement existant pour les autres lignes
 
                     line = line[2:].replace(';', '') 
+
                     parts = line.split()  
                     if len(parts) >= 4 :
                         num_sommet = parts[0]
@@ -60,6 +66,17 @@ try:
                         print(f"Skipping duplicate station: {station_name}")
                 else:
                     print(f"Skipping line due to unexpected format: {line}")
+        db.commit()
+
+        # Mettre à jour Pospoints avec les station_ids
+        cursor.execute("SELECT DISTINCT station_name FROM Pospoints")
+        pospoints = cursor.fetchall()
+
+        for pospoint in pospoints:
+            cursor.execute("SELECT GROUP_CONCAT(num_sommet) AS station_ids FROM Stations WHERE nom_sommet = %s", (pospoint['station_name'],))
+            result = cursor.fetchone()
+            if result['station_ids']:
+                cursor.execute("UPDATE Pospoints SET station_ids = %s WHERE station_name = %s", (result['station_ids'], pospoint['station_name']))
         db.commit()
 
 finally:
