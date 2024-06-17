@@ -2,6 +2,9 @@ import { createApp } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faFacebookF, faInstagram, faSnapchat, faTiktok } from '@fortawesome/free-brands-svg-icons';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap';
+
 
 import App from './App.vue';
 
