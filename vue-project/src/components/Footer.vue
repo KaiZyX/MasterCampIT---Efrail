@@ -43,6 +43,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    
   }
   
   footer {
@@ -70,7 +71,7 @@
   }
   
   .title {
-    font-size: 25px;
+    font-size: 14px;
     font-weight: bold;
     position: relative;
     margin-bottom: 15px;
@@ -91,12 +92,14 @@
   }
   
   .li-footer {
-    font-size: 18px;
+    font-size: 13px;
     margin-bottom: 5px;
     margin-top: 60px;
   }
   
   .linkFooter {
+    
+    
     color: #fff;
     text-decoration: none;
     transition: color 0.3s;
@@ -104,7 +107,7 @@
   
   .linkFooter:hover {
     color: #A7C7E7;
-  
+    
   }
   
   .Social-networks {
@@ -127,6 +130,7 @@
     transition: background-color 0.3s, color 0.3s;
     text-decoration: none;
     margin-top: 20px;
+    
   }
   
   .Social-icon:hover {

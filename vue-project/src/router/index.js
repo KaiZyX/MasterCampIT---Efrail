@@ -2,10 +2,20 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import TrainList from '@/components/TrainList.vue';
 import Map from '@/components/Map.vue';
+import Default from '@/components/Default.vue'
 
 const routes = [
-  {
-    path: '/',
+  {path: '',
+  name : 'Main',
+  component: Default,
+
+  children : [
+
+    { path: "/", redirect: "" },
+    { path: '/:pathMatch(.*)*', },
+
+     {
+    path: '/Accueil',
     name: 'TrainList',
     component: TrainList
   },
@@ -14,10 +24,14 @@ const routes = [
     name: 'Map',
     component: Map
   }
+  ]
+
+  }
+ 
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes
 });
 

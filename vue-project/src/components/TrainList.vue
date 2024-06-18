@@ -1,6 +1,8 @@
 import bootstrap from 'bootstrap'
 
 <template>
+
+  <div class="Global">
   <p> </p>
   <div class = "fond">
   <div class = "text">
@@ -53,12 +55,17 @@ import bootstrap from 'bootstrap'
   </button>
   <p>
   </p>
-  <div class="home">
-    <h1>Welcome to the Home Page</h1>
-    <button @click="navigateToMap">Go to Map</button>
-  </div>
+ 
+   
+   
+
   
 </div>  
+  <div class = "redirection_map">
+    <a  class = "Bouton" href="/map">Découvrir</a>
+  </div>
+</div>
+
 </div>
 
 
@@ -66,6 +73,26 @@ import bootstrap from 'bootstrap'
 </template>
 
 <style>
+
+.redirection_map{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.Global{
+
+  display: flex ;
+  flex-direction: column;
+  align-items: center ;
+  justify-content: center;
+} 
+.Bouton{
+
+  text-align: center;
+
+}
+
 .text{
   font-size: 25px;
 }
@@ -102,12 +129,5 @@ import bootstrap from 'bootstrap'
 
 <script>
 
-export default {
-  name: 'TrainList',
-  methods: {
-    navigateToMap() {
-      this.$router.push({ name: 'Map' });
-    }
-  }
-}
+
 </script>

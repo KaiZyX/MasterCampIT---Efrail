@@ -7,9 +7,9 @@
           </div>
           <ul>
               <div class = "nom">EFRAIL</div>
-              <li><a href="#">Accueil</a></li>
-              <li><a href="#">À propos</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="/">Accueil</a></li>
+              <li><a href="/">À propos</a></li>
+              <li><a href="/">Contact</a></li>
             
               
                 <li><a href="#">Découvrir</a></li>
@@ -31,12 +31,12 @@ export default {
 
 header {
   background-color: #A7C7E7; 
-  padding: 20px 0;
-  font-size: 25px; 
+  padding: 7px 0;
+  font-size: 14px; 
 }
 
 .logo img {
-  height: 90px;
+  height: 50px;
   padding-left: 40px; 
 }
 
