@@ -1,4 +1,5 @@
 <template>
+<div class="base">  
   <footer>
     <div class="container">
       <div class="row">
@@ -32,6 +33,7 @@
       </div>
     </div>
   </footer>
+</div>  
 </template>
 
 <script setup>
@@ -39,6 +41,11 @@
 
 <style scoped>
   /* Reset des listes et styles de base */
+
+
+
+
+
   li {
     list-style: none;
     margin: 0;
@@ -47,27 +54,37 @@
   }
   
   footer {
+
     background-color: #333;
-    padding: 30px 0;
+    padding: 25px 0;
     color: #fff;
     font-family: 'Poppins', sans-serif;
+    
   }
   
   .container {
     width: 90%;
     margin: 0 auto;
+    display: flex ;
+    flex-direction: column;
+    align-items: center ;
+    justify-content: center;
     
   }
   
   .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Espacement entre les colonnes */
+    gap: 15px; /* Espacement entre les colonnes */
   }
   
   .footer-column {
     flex: 1; /* Chaque colonne prend une part égale de l'espace disponible */
     padding: 0 15px;
+    display: flex ;
+    flex-direction: column;
+    align-items: center ;
+    justify-content: center;
   }
   
   .title {
@@ -103,6 +120,7 @@
     color: #fff;
     text-decoration: none;
     transition: color 0.3s;
+    
   }
   
   .linkFooter:hover {

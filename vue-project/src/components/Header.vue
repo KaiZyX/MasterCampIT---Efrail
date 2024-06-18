@@ -90,7 +90,7 @@ nav ul li:last-child a:hover {
 
   color: black;
   text-decoration: none;
-  margin-right: 500px;
+  margin-right: 1450px;
   text-align: center;
           
   

@@ -90,6 +90,11 @@ import bootstrap from 'bootstrap'
 .Bouton{
 
   text-align: center;
+  background-color:  #A7C7E7;
+  color: black;
+  
+  padding: 6px 12px;
+  border-radius: 5px;
 
 }
 
