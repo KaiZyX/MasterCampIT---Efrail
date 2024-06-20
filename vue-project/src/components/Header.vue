@@ -1,106 +1,65 @@
 <template>
   <header>
-      <nav>
-          <div class="logo">
-              <img src="@/assets/logo.png" height="90px" alt="Logo" />
-              
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container">
+              <a class="navbar-brand" href="#">
+                  <img src="@/assets/logo.png" height="50" alt="Logo" />
+                  EFRAIL
+              </a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav ml-auto">
+                      <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/">À propos</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/">Contact</a></li>
+                      <li class="nav-item"><a class="nav-link btn btn-light" href="#">Découvrir</a></li>
+                  </ul>
+              </div>
           </div>
-          <ul>
-              <div class = "nom">EFRAIL</div>
-              <li><a href="/">Accueil</a></li>
-              <li><a href="/">À propos</a></li>
-              <li><a href="/">Contact</a></li>
-            
-              
-                <li><a href="#">Découvrir</a></li>
-          
-          </ul>
       </nav>
   </header>
 </template>
 
-<script>
-export default {
-  // Votre script ici
-}
-</script>
-
 <style scoped>
-/* Vos styles CSS ici */
 
+.container{
+  background-color: #A7C7E7;
 
-header {
-  background-color: #A7C7E7; 
-  padding: 7px 0;
-  font-size: 14px; 
 }
 
-.logo img {
-  height: 50px;
-  padding-left: 40px; 
-}
 
-nav {
+
+.navbar-brand {
   display: flex;
-  justify-content: space-between; /* Aligner le logo à gauche et les liens à droite */
   align-items: center;
+
 }
 
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
+.navbar-brand img {
+  margin-right: 30px;
 }
 
-nav ul li {
-  margin-right: 20px;
-  
-}
-
-nav ul li:last-child {
-  margin-right: 0; /* Supprimer la marge du dernier élément */
-}
-
-nav ul li a {
+.nav-link {
   color: black;
-  text-decoration: none;
-  transition: color 0.3s; /* Ajouter une transition pour les liens */
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: white;
 }
 
 
-
-
-nav ul li a:hover {
-  color: white; /* Changer la couleur au survol */
-}
-
-nav ul li:last-child a {
-  background-color:white;
-  padding: 10px 20px;
-  border-radius: 5px;
-}
-
-nav ul li:last-child a:hover {
+.btn-light {
   background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
 }
 
-
-.nom{
-
+.btn-light:hover {
+  background-color: white;
   color: black;
-  text-decoration: none;
-  margin-right: 1450px;
-  text-align: center;
-          
-  
 }
-
-.nom:hover {
-  color:white /* Changer la couleur au survol */
-}
-         
-  
-
-
 </style>
