@@ -64,8 +64,9 @@ import bootstrap from 'bootstrap'
   <div class = "redirection_map">
     <a  class = "Bouton" href="/map">Découvrir</a>
   </div>
-</div>
 
+</div>
+<p></p>
 </div>
 
 
