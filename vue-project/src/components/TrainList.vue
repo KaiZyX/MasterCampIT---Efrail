@@ -5,15 +5,35 @@ import bootstrap from 'bootstrap'
   <div class="Global">
   <p> </p>
   <div class = "fond">
-  <div class = "text">
+  <div class = "text  ">
 
 
   <strong>Efrail vous propose de nombreux avantages détaillé si dessous</strong> 
+<br>
+<br>
 
 </div>
+<table class="table">
+  <thead>
+    <tr>
+      
+      <th class="coll1" scope="col">Réduction du temps de trajet</th>
+      <th scope="col">Diminution des émissions de CO2</th>
+      <th classe="coll1" scope="col">Amélioration de l'expérience utilisateur</th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <tr>
+      <td>permet de réduire considérablement le temps de trajet en proposant les itinéraires les plus rapides et les moins encombrés.</td>
+      <td>contribue à la diminution des émissions de CO2 en incitant les utilisateurs à privilégier les transports en commun plutôt que les véhicules individuels.</td>
+      <td>améliore l'expérience utilisateur en fournissant des itinéraires clairs, rapides et personnalisés, rendant les déplacements plus simples et agréables.</td>
+    </tr>
+   
+  </tbody>
+</table>
   <p></p>
   
-
+<br>
 
 
 <div id="carouselExampleCaptions" class="carousel slide">
@@ -65,7 +85,7 @@ import bootstrap from 'bootstrap'
     <a  class = "Bouton" href="/map">Découvrir</a>
   </div>
 </div>
-
+<br>
 </div>
 
 
@@ -73,6 +93,11 @@ import bootstrap from 'bootstrap'
 </template>
 
 <style>
+
+.coll1{
+  background-color:  #A7C7E7;
+
+}
 
 .redirection_map{
   align-items: center;
@@ -99,7 +124,9 @@ import bootstrap from 'bootstrap'
 }
 
 .text{
-  font-size: 25px;
+  font-size: 18px;
+  text-align: center;
+ 
 }
 .carousel-control-prev{
   background-color: #A7C7E7;

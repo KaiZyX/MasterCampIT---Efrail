@@ -49,7 +49,7 @@
 .nav-link:hover {
   color: white;
 }
-
+  
 
 .btn-light {
   background-color: white;
