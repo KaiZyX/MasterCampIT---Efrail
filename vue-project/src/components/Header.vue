@@ -14,7 +14,7 @@
                       <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
                       <li class="nav-item"><a class="nav-link" href="/">À propos</a></li>
                       <li class="nav-item"><a class="nav-link" href="/">Contact</a></li>
-                      <li class="nav-item"><a class="nav-link btn btn-light" href="#">Découvrir</a></li>
+                      <li class="nav-item"><a class="nav-link btn btn-light" href="/map">Découvrir</a></li>
                   </ul>
               </div>
           </div>

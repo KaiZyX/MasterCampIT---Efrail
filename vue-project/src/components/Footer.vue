@@ -116,7 +116,6 @@
     display: flex;
     gap: 10px;
     justify-content: center; /* Centre les icônes */
-    margin-top: 10px;
   }
 
   .Social-icon {
