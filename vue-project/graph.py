@@ -1,19 +1,44 @@
-import requests
+import pymysql
+import networkx as nx
+import matplotlib.pyplot as plt
 
-# Remplacez cette URL par l'URL de votre API si elle est différente
-base_url = "http://127.0.0.1:5000/api"
+def get_db_connection():
+    return pymysql.connect(host='localhost', user='root', password='louka', db='metro')
 
-# Tester l'endpoint /stations
-response_stations = requests.get(f"{base_url}/stations")
-print("Stations:", response_stations.json())
+def creer_graphe():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    G = nx.Graph()
+    cursor.execute("SELECT id, num_sommet FROM Stations")
+    stations = cursor.fetchall()
+    for station in stations:
+        G.add_node(station[1], id=station[0])
+    cursor.execute("SELECT num_sommet1, num_sommet2, temps_en_secondes FROM Aretes")
+    aretes = cursor.fetchall()
+    for sommet1, sommet2, temps in aretes:
+        G.add_edge(sommet1, sommet2, weight=int(temps))
+    conn.close()
+    return G
 
-# Tester l'endpoint /connections
-response_connections = requests.get(f"{base_url}/connections")
-print("Connections:", response_connections.json())
+def trouver_chemin(station_depart, station_arrivee):
+    G = creer_graphe()
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT num_sommet FROM Stations WHERE nom_sommet = %s", (station_depart,))
+    depart_id = cursor.fetchone()[0]
+    cursor.execute("SELECT num_sommet FROM Stations WHERE nom_sommet = %s", (station_arrivee,))
+    arrivee_id = cursor.fetchone()[0]
+    conn.close()
+    chemin = nx.dijkstra_path(G, source=depart_id, target=arrivee_id, weight='weight')
+    return chemin
 
-# Pour /api/map, comme il retourne une image, vous ne pouvez pas simplement afficher le JSON
-# Vous devriez sauvegarder le contenu de la réponse dans un fichier image et l'ouvrir
-response_map = requests.get(f"{base_url}/map")
-with open("map_result.png", "wb") as f:
-    f.write(response_map.content)
-print("Map image saved as map_result.png.")
+# Exemple d'utilisation
+station_depart = input("Entrez la station de départ: ")
+station_arrivee = input("Entrez la station d'arrivée: ")
+chemin = trouver_chemin(station_depart, station_arrivee)
+print("Le chemin le plus rapide est :", chemin)
+
+G = creer_graphe()
+
+nx.draw(G, with_labels=True, font_weight='bold')
+plt.show()

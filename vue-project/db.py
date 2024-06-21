@@ -55,28 +55,77 @@ try:
                     pointy = int(parts[1])
                     station_name = parts[2]
 
-                    # Vérifier si la station a déjà été insérée
-                    if station_name not in inserted_stations:
-                        cursor.execute(
-                            "INSERT INTO Pospoints (pointx, pointy, station_name) VALUES (%s, %s, %s)",
-                            (pointx, pointy, station_name)
-                        )
-                        inserted_stations.add(station_name)
-                    else:
-                        print(f"Skipping duplicate station: {station_name}")
+                    cursor.execute(
+                        "INSERT INTO Pospoints (pointx, pointy, station_name) VALUES (%s, %s, %s)",
+                        (pointx, pointy, station_name)
+                    )
                 else:
                     print(f"Skipping line due to unexpected format: {line}")
         db.commit()
 
-        # Mettre à jour Pospoints avec les station_ids
+        # Récupérer tous les noms de stations uniques dans Pospoints
         cursor.execute("SELECT DISTINCT station_name FROM Pospoints")
-        pospoints = cursor.fetchall()
+        pospoints_station_names = cursor.fetchall()
 
-        for pospoint in pospoints:
-            cursor.execute("SELECT GROUP_CONCAT(num_sommet) AS station_ids FROM Stations WHERE nom_sommet = %s", (pospoint['station_name'],))
-            result = cursor.fetchone()
-            if result['station_ids']:
-                cursor.execute("UPDATE Pospoints SET station_ids = %s WHERE station_name = %s", (result['station_ids'], pospoint['station_name']))
+        for pospoint_station_name in pospoints_station_names:
+            # Récupérer tous les Pospoints pour ce nom de station
+            cursor.execute("SELECT id, station_name FROM Pospoints WHERE station_name = %s", (pospoint_station_name['station_name'],))
+            pospoints = cursor.fetchall()
+            
+            # Récupérer tous les station_id correspondant à ce nom de station
+            cursor.execute("SELECT num_sommet FROM Stations WHERE nom_sommet = %s", (pospoint_station_name['station_name'],))
+            station_ids = [row['num_sommet'] for row in cursor.fetchall()]
+            
+            # Créer un ensemble pour suivre les station_ids déjà assignés
+            assigned_station_ids = set()
+
+            # Associer chaque Pospoint à un station_id unique, dans la mesure du possible
+            for pospoint in pospoints:
+                # Trouver le premier station_id non encore assigné
+                station_id_to_assign = None
+                for station_id in station_ids:
+                    if station_id not in assigned_station_ids:
+                        station_id_to_assign = station_id
+                        break
+                
+                if station_id_to_assign is not None:
+                    # Si un station_id non assigné est trouvé, l'assigner et le marquer comme assigné
+                    assigned_station_ids.add(station_id_to_assign)
+                    cursor.execute("UPDATE Pospoints SET station_ids = %s WHERE id = %s", (station_id_to_assign, pospoint['id']))
+                # Note: Si aucun station_id non assigné n'est trouvé, le Pospoint ne sera pas mis à jour. 
+                # Vous pouvez ajouter une logique supplémentaire ici si nécessaire.
+        db.commit()
+
+        cursor.execute("DELETE FROM Pospoints WHERE station_ids IS NULL")
+        db.commit()
+
+        for pospoint_station_name in pospoints_station_names:
+            # Récupérer tous les Pospoints pour ce nom de station
+            cursor.execute("SELECT id, station_name FROM Pospoints WHERE station_name = %s", (pospoint_station_name['station_name'],))
+            pospoints = cursor.fetchall()
+            
+            # Récupérer tous les numero_ligne correspondant à ce nom de station
+            cursor.execute("SELECT numero_ligne FROM Stations WHERE nom_sommet = %s", (pospoint_station_name['station_name'],))
+            lignes_ids = [row['numero_ligne'] for row in cursor.fetchall()]
+            
+            # Créer un ensemble pour suivre les lignes_ids déjà assignés
+            assigned_lignes_ids = set()
+
+            # Associer chaque Pospoint à un lignes_id unique, dans la mesure du possible
+            for pospoint in pospoints:
+                # Trouver le premier lignes_id non encore assigné
+                lignes_id_to_assign = None
+                for lignes_id in lignes_ids:
+                    if lignes_id not in assigned_lignes_ids:
+                        lignes_id_to_assign = lignes_id
+                        break
+                
+                if lignes_id_to_assign is not None:
+                    # Si un lignes_id non assigné est trouvé, l'assigner et le marquer comme assigné
+                    assigned_lignes_ids.add(lignes_id_to_assign)
+                    cursor.execute("UPDATE Pospoints SET lignes_ids = %s WHERE id = %s", (lignes_id_to_assign, pospoint['id']))
+                # Note: Si aucun lignes_id non assigné n'est trouvé, le Pospoint ne sera pas mis à jour. 
+                # Vous pouvez ajouter une logique supplémentaire ici si nécessaire.
         db.commit()
 
 finally:
