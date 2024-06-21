@@ -12,7 +12,7 @@
               <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav ml-auto">
                       <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/">À propos</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/Afflu">Heure d'affluence</a></li>
                       <li class="nav-item"><a class="nav-link" href="/">Contact</a></li>
                       <li class="nav-item"><a class="nav-link btn btn-light" href="/map">Découvrir</a></li>
                   </ul>
@@ -49,7 +49,7 @@
 .nav-link:hover {
   color: white;
 }
-  
+
 
 .btn-light {
   background-color: white;

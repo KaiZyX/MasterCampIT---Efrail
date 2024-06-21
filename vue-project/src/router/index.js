@@ -2,7 +2,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import TrainList from '@/components/TrainList.vue';
 import Map from '@/components/Map.vue';
-import Default from '@/components/Default.vue'
+import Afflu from '@/components/Afflu.vue' ;
+import Default from '@/components/Default.vue';
+import { compile } from 'vue';
 
 const routes = [
   {path: '',
@@ -23,6 +25,11 @@ const routes = [
     path: '/map',
     name: 'Map',
     component: Map
+  },
+  {
+    path : '/Afflu',
+    name:'Afflu',
+    component : Afflu
   }
   ]
 
