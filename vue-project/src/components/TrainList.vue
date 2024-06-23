@@ -8,7 +8,7 @@ import bootstrap from 'bootstrap'
   <div class = "text  ">
 
 
-  <strong>Efrail vous propose de nombreux avantages détaillé si dessous</strong> 
+  <strong>Efrail vous offre une multitude d'avantages, soigneusement détaillés ci-dessous.</strong> 
 <br>
 <br>
 
@@ -24,9 +24,9 @@ import bootstrap from 'bootstrap'
   </thead>
   <tbody class="table-group-divider">
     <tr>
-      <td>permet de réduire considérablement le temps de trajet en proposant les itinéraires les plus rapides et les moins encombrés.</td>
-      <td>contribue à la diminution des émissions de CO2 en incitant les utilisateurs à privilégier les transports en commun plutôt que les véhicules individuels.</td>
-      <td>améliore l'expérience utilisateur en fournissant des itinéraires clairs, rapides et personnalisés, rendant les déplacements plus simples et agréables.</td>
+      <td>Permet de réduire considérablement le temps de trajet en proposant les itinéraires les plus rapides et les moins encombrés.</td>
+      <td>Contribue à la diminution des émissions de CO2 en incitant les utilisateurs à privilégier les transports en commun plutôt que les véhicules individuels.</td>
+      <td>Améliore l'expérience utilisateur en fournissant des itinéraires clairs, rapides et personnalisés, rendant les déplacements plus simples et agréables.</td>
     </tr>
    
   </tbody>
@@ -44,24 +44,25 @@ import bootstrap from 'bootstrap'
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="@/assets/train1.png"  class="d-block w-100" alt="...">
+      <img src="@/assets/train1.avif"  class="img1" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5></h5>
-        <p>Some representative placeholder content for the first slide.</p>
+        <h5 class ="h55">Réduction du temps de trajet</h5>
+        <p></p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="@/assets/train1.png"  class="d-block w-100" alt="...">
+      <img src="@/assets/train3.jpg"  class="img3" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Some representative placeholder content for the second slide.</p>
+        
+        <h5 class ="h55">Diminution de CO2</h5>
+        <p></p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="@/assets/train1.png"  class="d-block w-100" alt="...">
+      <img src="@/assets/train2.jpg"  class="img2" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        <h5>Third slide label</h5>
-        <p>Some representative placeholder content for the third slide.</p>
+        <h5 >	Amélioration de l'expérience utilisateur</h5>
+        <p></p>
       </div>
     </div>
   </div>
@@ -95,6 +96,25 @@ import bootstrap from 'bootstrap'
 
 <style>
 
+.img1{
+  width: 500px;  
+  height: 400px
+}
+
+.img3{
+  width: 500px;  
+  height: 400px
+
+}
+.h55{ 
+  color: black;
+}
+
+.img2{
+  width: 1000px;  
+  height: 400px
+  
+}
 .coll1{
   background-color:  #A7C7E7;
 

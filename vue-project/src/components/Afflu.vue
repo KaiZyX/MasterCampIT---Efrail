@@ -1,16 +1,17 @@
 <template>
     <br>
-    <strong><div class='oui'>Heures d'influence du lundi au vendredi :</div></strong>
+    <strong><div class='oui'>Heures d'affluence du lundi au vendredi :</div></strong>
     <br>
     <div class="afflu-container">
       <canvas ref="affluenceChart1"></canvas>
     </div>
     <br>
-    <strong><div class='oui'>Heures d'influence du samedi au dimanche :</div></strong>
+    <strong><div class='oui'>Heures d'affluence du samedi au dimanche :</div></strong>
     <br>
     <div class="afflu-container">
       <canvas ref="affluenceChart2"></canvas>
     </div>
+    <br>
   </template>
   
   <script>
@@ -68,7 +69,7 @@
             }
           }
         });
-  
+        
         const ctx2 = affluenceChart2.value.getContext('2d');
         chart2.value = new Chart(ctx2, {
           type: 'line',
