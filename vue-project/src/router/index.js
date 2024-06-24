@@ -4,6 +4,7 @@ import TrainList from '@/components/TrainList.vue';
 import Map from '@/components/Map.vue';
 import Afflu from '@/components/Afflu.vue' ;
 import Default from '@/components/Default.vue';
+import Env from '@/components/Env.vue';
 import { compile } from 'vue';
 
 const routes = [
@@ -30,7 +31,13 @@ const routes = [
     path : '/Afflu',
     name:'Afflu',
     component : Afflu
-  }
+  },
+
+  {
+  path : '/Env',
+  name : 'Env',
+  component: Env
+  },
   ]
 
   }

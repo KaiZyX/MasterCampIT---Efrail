@@ -96,6 +96,11 @@ import bootstrap from 'bootstrap'
 
 <style>
 
+.Bouton{
+
+  
+}
+
 .img1{
   width: 500px;  
   height: 400px
