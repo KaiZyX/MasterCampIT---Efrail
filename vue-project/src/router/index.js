@@ -5,6 +5,7 @@ import Map from '@/components/Map.vue';
 import Afflu from '@/components/Afflu.vue' ;
 import Default from '@/components/Default.vue';
 import Env from '@/components/Env.vue';
+import Cons from '@/components/Cons.vue'
 import { compile } from 'vue';
 
 const routes = [
@@ -38,6 +39,10 @@ const routes = [
   name : 'Env',
   component: Env
   },
+  {
+  path : '/Cons',
+  name : 'Cons',
+  component : Cons},
   ]
 
   }
