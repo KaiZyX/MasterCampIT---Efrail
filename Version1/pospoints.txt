@@ -184,6 +184,7 @@
 677;802;Chevaleret
 711;788;Quai@de@la@Gare
 746;753;Bercy
+747;752;Bercy
 767;731;Dugommier
 792;707;Daumesnil
 813;687;Bel@Air
@@ -212,6 +213,7 @@
 417;462;Opéra
 422;467;Opéra
 417;504;Pyramides
+416;503;Pyramides
 417;549;Palais@Royal,@Musée@du@Louvre
 480;550;Pont-Neuf
 538;537;Châtelet

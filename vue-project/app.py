@@ -7,6 +7,11 @@ import io
 import os
 import pymysql.cursors
 import networkx as nx
+from plotly.io import to_html
+import plotly.graph_objects as go
+from flask import Flask, jsonify
+import plotly.graph_objects as go
+
 
 app = Flask(__name__)
 
@@ -27,18 +32,13 @@ def get_stations():
     connection.close()
     return jsonify(stations)
 
-@app.route('/api/connections', methods=['GET'])
-def get_connections():
-    connection = get_db_connection()
-    with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM Connections')
-        connections = cursor.fetchall()
-    connection.close()
-    return jsonify(connections)
 
+app = Flask(__name__)
+
+# Affiche le graphique de toutes les lignes de metro
 @app.route('/api/map', methods=['GET'])
 def get_map():
-    db_connection = None  # Assurez-vous que connection est définie avant le bloc try
+    db_connection = None
     try:
         db_connection = get_db_connection()
         with db_connection.cursor() as cursor:
@@ -57,186 +57,99 @@ def get_map():
             ''')
             connections = cursor.fetchall()
 
-        for row in connections:
-            print(f"x1: {row[0]}, y1: {row[1]}, x2: {row[2]}, y2: {row[3]}, lignes_ids1: {row[4]}, lignes_ids2: {row[5]}")
+        fig = go.Figure()
 
-        # Dessin des points et des connexions
-        fig, ax = plt.subplots()
-        fig.patch.set_facecolor('white')
-        ax.set_facecolor('white')
+        for point in points:
+            fig.add_trace(go.Scatter(x=[point[0]], y=[-point[1]], mode='markers', marker=dict(color='black', size=8), hovertext=[point[2]], hoverinfo='text'))
 
-        # Dessin des connexions avec la couleur déterminée
         for connection in connections:
-            # Extraire les IDs de ligne sous forme de listes
-            lignes_ids1 = connection[4].split(',')
-            lignes_ids2 = connection[5].split(',')
-            # Trouver les IDs communs
-            common_ids = set(lignes_ids1).intersection(lignes_ids2)
-            # Pour cet exemple, on prend le premier ID commun pour déterminer la couleur
-            if common_ids:
-                common_id = next(iter(common_ids))
-                color = couleur_ligne(common_id)
-                ax.plot([connection[0], connection[2]], [-connection[1], -connection[3]], color=color, linewidth=2)
+            lignes_ids = connection[4].split(',')  
+            if lignes_ids: 
+                line_color = couleur_ligne(lignes_ids[0])  
+                fig.add_trace(go.Scatter(x=[connection[0], connection[2]], y=[-connection[1], -connection[3]], mode='lines', line=dict(color=line_color, width=2)))
+            else:
+                fig.add_trace(go.Scatter(x=[connection[0], connection[2]], y=[connection[1], connection[3]], mode='lines', line=dict(color='grey', width=2)))
 
-        # Dessin des points
-        x_points = [point[0] for point in points]
-        y_points = [-point[1] for point in points]
-        ax.scatter(x_points, y_points, color='black', edgecolors='black', s=15)  # s contrôle la taille
-       
-        ax.axis('off')
-    
-        buf = io.BytesIO()
-        plt.savefig(buf, format='png', bbox_inches='tight')
-        buf.seek(0)
-        plt.close(fig)
+        fig.update_layout(
+            showlegend=False, 
+            plot_bgcolor='white', 
+            xaxis=dict(
+                showgrid=False, 
+                zeroline=False, 
+                visible=False,
+                scaleanchor='y',
+                scaleratio=1
+            ),
+            yaxis=dict(
+                showgrid=False, 
+                zeroline=False, 
+                visible=False
+            ),
+            autosize=True
+        )
+        graph_html = fig.to_html(full_html=False)
 
-        return send_file(buf, mimetype='image/png')
-    
-    except Exception as e:
-        current_app.logger.error("Erreur: %s", e)
-        return jsonify({'error': str(e)}), 500
+        return graph_html
+
     finally:
         if db_connection:
             db_connection.close()
 
-# def creer_graphe():
-#     conn = get_db_connection()
-#     cursor = conn.cursor()
-#     G = nx.Graph()
-#     cursor.execute("SELECT id, num_sommet FROM Stations")
-#     stations = cursor.fetchall()
-#     for station in stations:
-#         G.add_node(station[1], id=station[0])
-#     cursor.execute("SELECT num_sommet1, num_sommet2, temps_en_secondes FROM Aretes")
-#     aretes = cursor.fetchall()
-#     for sommet1, sommet2, temps in aretes:
-#         G.add_edge(sommet1, sommet2, weight=int(temps))
-#     conn.close()
-#     return G
 
-def trouver_chemin_et_temps(station_depart, station_arrivee):
-    # G = creer_graphe()
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT num_sommet FROM Stations WHERE nom_sommet = %s", (station_depart,))
-    depart_id = cursor.fetchone()[0]
-    cursor.execute("SELECT num_sommet FROM Stations WHERE nom_sommet = %s", (station_arrivee,))
-    arrivee_id = cursor.fetchone()[0]
-    conn.close()
-    chemin = nx.dijkstra_path(G, source=depart_id, target=arrivee_id, weight='weight')
-    temps_total = nx.dijkstra_path_length(G, source=depart_id, target=arrivee_id, weight='weight')
-    return chemin, temps_total
-
-
-# def get_path_data(chemin, db_connection):
-#     # Récupère les données des points et des connexions pour les IDs de sommets dans 'chemin'
-#     points = []
-#     connections = []
-#     with db_connection.cursor() as cursor:
-#         # Récupérer les points
-#         placeholders = ','.join(['%s'] * len(chemin))
-#         cursor.execute(f"SELECT pointx, pointy, station_name FROM Pospoints WHERE station_ids IN ({placeholders})", chemin)
-#         points = cursor.fetchall()
-
-#         # Récupérer les connexions
-#         # Note: Cette requête doit être adaptée à votre schéma de base de données et à la manière dont vous stockez les connexions
-#         cursor.execute(f'''
-#             SELECT 
-#                 A.pointx AS x1, A.pointy AS y1, 
-#                 B.pointx AS x2, B.pointy AS y2,
-#                 A.lignes_ids AS lignes_ids1, B.lignes_ids AS lignes_ids2
-#             FROM 
-#                 Aretes C
-#                 JOIN Pospoints A ON FIND_IN_SET(C.num_sommet1, A.station_ids)
-#                 JOIN Pospoints B ON FIND_IN_SET(C.num_sommet2, B.station_ids)
-#             WHERE 
-#                 C.num_sommet1 IN ({placeholders}) AND
-#                 C.num_sommet2 IN ({placeholders})
-#         ''', chemin * 2)  # La liste chemin est répétée pour correspondre aux placeholders pour num_sommet1 et num_sommet2
-#         connections = cursor.fetchall()
-
-#     return points, connections
-
-app.route('/api/mapPath', methods=['GET'])
-def get_map_path():
-    station_depart = request.args.get('depart')
-    station_arrivee = request.args.get('arrivee')
-    if not station_depart or not station_arrivee:
-        return jsonify({'error': 'Les paramètres "depart" et "arrivee" sont requis'}), 400
+# Affiche le graphique de la ligne spécifiée
+@app.route('/api/line_map', methods=['GET'])
+def get_line_map():
+    line_id = request.args.get('line_id')  
+    color = couleur_ligne(line_id) 
 
     db_connection = get_db_connection()
-    cursor = db_connection.cursor()
-    try:
-        chemin, temps_total = trouver_chemin_et_temps(station_depart, station_arrivee)
-        informations_chemin = []
+    with db_connection.cursor() as cursor:
+        cursor.execute('''
+            SELECT pointx, pointy, station_name FROM Pospoints
+            WHERE FIND_IN_SET(%s, lignes_ids);
+        ''', (line_id,))
+        points = cursor.fetchall()
 
-        for i in range(len(chemin) - 1):
-            station_id1 = chemin[i]
-            station_id2 = chemin[i + 1]
-            cursor.execute('''
-                SELECT 
-                    A.pointx AS x1, A.pointy AS y1, 
-                    B.pointx AS x2, B.pointy AS y2,
-                    A.lignes_ids AS lignes_ids1, B.lignes_ids AS lignes_ids2,
-                    C.ligne_id
-                FROM 
-                    Aretes C
-                    JOIN Pospoints A ON FIND_IN_SET(C.num_sommet1, A.station_ids)
-                    JOIN Pospoints B ON FIND_IN_SET(C.num_sommet2, B.station_ids)
-                WHERE
-                    A.station_id = %s AND B.station_id = %s;
-            ''', (station_id1, station_id2))
-            informations_chemin.extend(cursor.fetchall())
+        cursor.execute('''
+            SELECT 
+                A.pointx AS x1, A.pointy AS y1, 
+                B.pointx AS x2, B.pointy AS y2
+            FROM 
+                Aretes C
+                JOIN Pospoints A ON FIND_IN_SET(C.num_sommet1, A.station_ids) AND FIND_IN_SET(%s, A.lignes_ids)
+                JOIN Pospoints B ON FIND_IN_SET(C.num_sommet2, B.station_ids) AND FIND_IN_SET(%s, B.lignes_ids);
+        ''', (line_id, line_id))
+        connections = cursor.fetchall()
 
-        # Dessin des points et des connexions
-        fig, ax = plt.subplots()
-        fig.patch.set_facecolor('white')
-        ax.set_facecolor('white')
+    fig = go.Figure()
 
-        # Dessin des connexions
-        for connection in informations_chemin:
-            lignes_ids1 = connection[4].split(',')
-            lignes_ids2 = connection[5].split(',')
-            common_ids = set(lignes_ids1).intersection(lignes_ids2)
-            if common_ids:
-                common_id = next(iter(common_ids))
-                color = couleur_ligne(common_id)
-                ax.plot([connection[0], connection[2]], [-connection[1], -connection[3]], color=color, linewidth=2)
+    for point in points:
+        fig.add_trace(go.Scatter(x=[point[0]], y=[-point[1]], mode='markers+text', marker=dict(color='black', size=8),
+                                 text=[point[2]], textposition="bottom center", hoverinfo='text'))
 
-        # Dessin des points
-        x_points = [point[0] for point in informations_chemin]
-        y_points = [-point[1] for point in informations_chemin]
-        ax.scatter(x_points, y_points, color='black', edgecolors='black', s=15)
+    for conn in connections:
+        fig.add_trace(go.Scatter(x=[conn[0], conn[2]], y=[-conn[1], -conn[3]], mode='lines', line=dict(color=color, width=2)))
 
-        ax.axis('off')
+    fig.update_layout(
+            showlegend=False, 
+            plot_bgcolor='white', 
+            xaxis=dict(
+                showgrid=False, 
+                zeroline=False, 
+                visible=False,
+                scaleanchor='y',
+                scaleratio=1
+            ),
+            yaxis=dict(
+                showgrid=False, 
+                zeroline=False, 
+                visible=False
+            ),
+            autosize=True
+    )
+    graph_html = fig.to_html(full_html=False)
 
-        buf = io.BytesIO()
-        plt.savefig(buf, format='png', bbox_inches='tight')
-        buf.seek(0)
-        plt.close(fig)
-
-        return send_file(buf, mimetype='image/png')
-    
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-    finally:
-        if db_connection:
-            db_connection.close()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return graph_html
 
 # dictionnaire des couleurs des lignes de metro
 couleurs_metro = {
@@ -258,11 +171,9 @@ couleurs_metro = {
     "14": "#662483"
 }
 
-
 def couleur_ligne(ligne_id):
-    return couleurs_metro.get(ligne_id, "#FFFFFF")  # Retourne blanc par défaut si la ligne n'est pas trouvée
-
+    return couleurs_metro.get(ligne_id, "#FFFFFF")  
 
 if __name__ == '__main__':
     app.run(debug=True)
-
+ 
