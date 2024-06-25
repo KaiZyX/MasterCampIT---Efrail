@@ -23,6 +23,9 @@ def home():
 def get_db_connection():
     return pymysql.connect(host='localhost', user='root', password='louka', db='metro', cursorclass=pymysql.cursors.DictCursor)
 
+def get_db_connection2(): 
+    return pymysql.connect(host='localhost', user='root', password='louka', db='metro')# sans cursorclass=pymysql.cursors.DictCursor pour l'api map et line
+
 @app.route('/api/stations', methods=['GET'])
 def get_stations():
     connection = get_db_connection()
@@ -40,7 +43,7 @@ app = Flask(__name__)
 def get_map():
     db_connection = None
     try:
-        db_connection = get_db_connection()
+        db_connection = get_db_connection2()
         with db_connection.cursor() as cursor:
             cursor.execute("SELECT pointx, pointy, station_name FROM Pospoints")
             points = cursor.fetchall()
@@ -59,6 +62,7 @@ def get_map():
 
         fig = go.Figure()
 
+        
         for point in points:
             fig.add_trace(go.Scatter(x=[point[0]], y=[-point[1]], mode='markers', marker=dict(color='black', size=8), hovertext=[point[2]], hoverinfo='text'))
 
@@ -102,7 +106,7 @@ def get_line_map():
     line_id = request.args.get('line_id')  
     color = couleur_ligne(line_id) 
 
-    db_connection = get_db_connection()
+    db_connection = get_db_connection2()
     with db_connection.cursor() as cursor:
         cursor.execute('''
             SELECT pointx, pointy, station_name FROM Pospoints
@@ -328,7 +332,7 @@ def get_shortest_path_info():
     print(stations_info[0])
     print(stations_info)
 
-    
+
     print("--------------------------")
     # Boucle à travers stations_info pour accéder aux informations de chaque station
     for station_list in stations_info:
