@@ -128,5 +128,27 @@ try:
                 # Vous pouvez ajouter une logique supplémentaire ici si nécessaire.
         db.commit()
 
+        # Ajouter des arêtes entre chaque quai de la même station s'ils n'existent pas déjà
+        for pospoint_station_name in pospoints_station_names:
+            # Récupérer tous les station_ids pour ce nom de station
+            cursor.execute("SELECT station_ids FROM Pospoints WHERE station_name = %s", (pospoint_station_name['station_name'],))
+            station_ids = [row['station_ids'] for row in cursor.fetchall()]
+
+            # Ajouter des arêtes entre chaque station_id de la même station
+            for i in range(len(station_ids)):
+                for j in range(i + 1, len(station_ids)):
+                    # Vérifier si l'arête existe déjà
+                    cursor.execute(
+                        "SELECT COUNT(*) as count FROM Aretes WHERE (num_sommet1 = %s AND num_sommet2 = %s) OR (num_sommet1 = %s AND num_sommet2 = %s)",
+                        (station_ids[i], station_ids[j], station_ids[j], station_ids[i])
+                    )
+                    result = cursor.fetchone()
+                    if result['count'] == 0:
+                        cursor.execute(
+                            "INSERT INTO Aretes (num_sommet1, num_sommet2, temps_en_secondes) VALUES (%s, %s, %s)",
+                            (station_ids[i], station_ids[j], 0)
+                        )
+        db.commit()
+
 finally:
     db.close()
