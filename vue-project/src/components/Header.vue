@@ -15,7 +15,7 @@
                       <li class="nav-item"><a class="nav-link" href="/Afflu">Heures d'affluences</a></li>
                       <li class="nav-item"><a class="nav-link" href="/Env">Environnement</a></li>
                       <li class="nav-item"><a class="nav-link" href="/Cons">Conseil</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/Map">Découvrir</a></li>
+                      
                       
                       
                   </ul>
