@@ -11,10 +11,11 @@ from plotly.io import to_html
 import plotly.graph_objects as go
 from flask import Flask, jsonify
 import plotly.graph_objects as go
+from flask_cors import CORS  # Ajoutez cette ligne
 
 
 app = Flask(__name__)
-
+CORS(app) 
 @app.route('/')
 def home():
     return "Welcome to the API. Use /api/stations or /api/connections to access data."
@@ -36,7 +37,7 @@ def get_stations():
     return jsonify(stations)
 
 
-app = Flask(__name__)
+
 
 # Affiche le graphique de toutes les lignes de metro
 @app.route('/api/map', methods=['GET'])
@@ -411,8 +412,9 @@ def get_shortest_path_info():
             ),
             autosize=True
         )
+    
     graph_html = fig.to_html(full_html=False)
-
+    
     return graph_html
 
 
