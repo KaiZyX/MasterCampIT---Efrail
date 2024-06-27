@@ -16,7 +16,7 @@
           </div>
         </div>
         <div v-if="url" class="map-output"> 
-          <object :data="url" width="800px" height="600px" style="overflow:auto;border:5px ridge blue">
+          <object :data="url" width="800px" height="600px" style="overflow:auto;border:5px ridge lightblue">
           </object>
         </div>
       </div>
@@ -29,8 +29,8 @@
         <thead>
           <tr>
             <th class="coll1" scope="col">Réduction du temps de trajet</th>
-            <th scope="col">Diminution des émissions de CO2</th>
-            <th classe="coll1" scope="col">Amélioration de l'expérience utilisateur</th>
+            <th class="coll1">Diminution des émissions de CO2</th>
+            <th class="coll1" scope="col">Amélioration de l'expérience utilisateur</th>
           </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -117,7 +117,7 @@ export default {
   
   
   padding: 20px;
-  background-color: #A7C7E7;
+  background-color: #c9e4fe;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 350px; /* Limitez la largeur du conteneur */
@@ -125,7 +125,7 @@ export default {
 }
 
 .search-form-header {
-  background-color: #34568B; /* Bleu plus foncé */
+  background-color: #647fa9; /* Bleu plus foncé */
   color: white;
   padding: 10px;
   width: 100%;
@@ -139,7 +139,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #A7C7E7;
+  background-color: #c9e4fe;
   padding: 20px;
   border-radius: 0 0 10px 10px;
 }
@@ -154,6 +154,8 @@ export default {
   margin: 10px;
 }
 
+
+
 .Bouton {
   padding: 10px 20px;
   background-color: #ff7f50;
@@ -164,7 +166,7 @@ export default {
 }
 
 .Bouton:hover {
-  background-color: #ff6347;
+  background-color: #7dbac8;
 }
 
 .img1 {
@@ -187,13 +189,16 @@ export default {
 }
 
 .coll1 {
-  background-color: #A7C7E7;
+  background-color: #86bcf1;
 }
 
 .redirection_map {
   align-items: center;
   justify-content: center;
   display: flex;
+}
+.map-output {
+  margin-bottom: 40px; /* Ajoute de l'espace après la carte */
 }
 
 .Global {
@@ -239,13 +244,46 @@ export default {
 
 .ok {
   margin-top: 100px;
-  background-color: white;
+  background-color: rgb(187, 145, 145);
   font-size: 25px;
 }
 
 .fond {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
 }
 
+.table {
+  width: 80%; /* Ajustez la largeur du tableau */
+  margin: 20px auto; /* Centrer le tableau et ajouter de l'espace autour */
+  border-collapse: collapse; /* Supprime les espaces entre les cellules */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Ajoute une ombre pour un effet de profondeur */
+}
 
+.table th, .table td {
+  padding: 15px; /* Ajustez l'espacement à l'intérieur des cellules */
+  text-align: left; /* Alignement du texte */
+  border-bottom: 1px solid #ddd; /* Ligne de séparation */
+}
+
+.table th {
+  background-color: #9bcdff; /* Couleur de fond pour les en-têtes */
+  color: white; /* Couleur du texte pour les en-têtes */
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Couleur de fond pour les lignes paires */
+}
+
+.table tr:hover {
+  background-color: #ddd; /* Couleur de fond au survol */
+}
+
+.table td {
+  color: #333; /* Couleur du texte pour les cellules */
+}
+
+/* Ajoutez cette classe si elle n'existe pas déjà */
+.coll1, .table th:not(.coll1), .table td {
+  background-color: #fff; /* Couleur de fond uniforme pour toutes les cellules */
+}
 </style>

@@ -1,3 +1,4 @@
+
 <template>
   <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,45 +27,60 @@
 </template>
 
 <style scoped>
-
-.container{
-  background-color: #A7C7E7;
-
+.container {
+  background-color: #f8f9fa; /* Couleur de fond plus douce */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Ajoute une ombre pour donner de la profondeur */
 }
 
+.navbar {
+  padding: 0.5rem 1rem; /* Réduit le padding pour un look plus épuré */
+}
 
-
+.navbar-nav {
+  display: flex; /* Assure que les éléments sont traités comme des flex items */
+  justify-content: space-evenly; /* Espacement équitable entre les éléments */
+  width: 100%; /* S'assure que le .navbar-nav utilise toute la largeur disponible */
+}
 .navbar-brand {
   display: flex;
   align-items: center;
-
+  color: #00b3ff; /* Couleur du texte du logo pour le rendre plus distinct */
+  font-family: "Audiowide", sans-serif;
+  font-size: x-large;
+  font-style: normal;
 }
 
 .navbar-brand img {
-  margin-right: 30px;
+  margin-right: 15px; /* Ajuste l'espacement autour du logo */
 }
 
 .nav-link {
-  color: black;
+  color: #555; /* Couleur plus douce pour les liens */
   transition: color 0.3s;
+  font-weight: 500; /* Rend le texte un peu plus épais */
+  border: 2px solid #7cbbff; /* Ajoute une bordure */
+  border-radius: 5px; /* Arrondit les coins */
+  padding: 5px 10px; /* Ajoute un peu d'espace à l'intérieur */
+  margin: 0 5px; /* Ajoute un peu d'espace entre les boutons */
 }
 
-
-
-.nav-link:hover {
-  color: white;
+.nav-link:hover, .nav-link:focus {
+  color: #ffffff; /* Change la couleur du texte au survol */
+  background-color: #97caff; /* Change la couleur de fond au survol */
+  border-color: #5981ad; /* Assombrit la bordure au survol */
 }
-
 
 .btn-light {
-  background-color: white;
+  background-color: #007bff; /* Couleur de fond du bouton */
+  color: white; /* Couleur du texte du bouton */
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
+  transition: background-color 0.3s, color 0.3s; /* Transition douce pour le survol */
 }
 
 .btn-light:hover {
-  background-color: white;
-  color: black;
+  background-color: #0056b3; /* Couleur de fond du bouton au survol */
+  color: #ffffff; /* Couleur du texte du bouton au survol */
 }
 </style>
