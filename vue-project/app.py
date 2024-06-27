@@ -22,10 +22,10 @@ def home():
 
 
 def get_db_connection():
-    return pymysql.connect(host='localhost', user='root', password='Florian1!', db='metro', cursorclass=pymysql.cursors.DictCursor)
+    return pymysql.connect(host='localhost', user='root', password='/An62-Da53', db='metro', cursorclass=pymysql.cursors.DictCursor)
 
 def get_db_connection2(): 
-    return pymysql.connect(host='localhost', user='root', password='Florian1!', db='metro')# sans cursorclass=pymysql.cursors.DictCursor pour l'api map et line
+    return pymysql.connect(host='localhost', user='root', password='/An62-Da53', db='metro')# sans cursorclass=pymysql.cursors.DictCursor pour l'api map et line
 
 @app.route('/api/stations', methods=['GET'])
 def get_stations():
@@ -261,8 +261,15 @@ def get_station_id(station_name):
     try:
         with connection.cursor() as cursor:
             # Requête SQL pour récupérer l'identifiant de la station à partir de son nom
-            sql = "SELECT num_sommet FROM Stations WHERE nom_sommet = %s LIMIT 1"
-            cursor.execute(sql, (station_name,))
+            sql = """
+            SELECT num_sommet FROM Stations
+            WHERE SOUNDEX(nom_sommet) = SOUNDEX(%s)
+            OR LEVENSHTEIN(nom_sommet, %s) <= 2  # Admet une différence de jusqu'à 2 caractères
+            ORDER BY LEVENSHTEIN(nom_sommet, %s), LENGTH(nom_sommet)
+            LIMIT 1
+            """
+            
+            cursor.execute(sql, (station_name, station_name, station_name))
             result = cursor.fetchone()
 
             if result:
@@ -385,11 +392,18 @@ def get_shortest_path_info():
 
         lignes_ids1 = station1_info['lignes_ids']
         lignes_ids2 = station2_info['lignes_ids']
+        station_name1 = station1_info['station_name']
+        station_name2 = station2_info['station_name']
+        
         color1 = couleur_ligne(lignes_ids1)
         color2 = couleur_ligne(lignes_ids2)
+        if(station_name1 == station_name2):
+            color='black'
         if(color1 == color2):
             color=color1
-
+        print(color1)
+        print(color2)
+        
 
         fig.add_trace(go.Scatter(x=[station1_pointx, station2_pointx], y=[-station1_pointy, -station2_pointy],
                                 mode='lines', line=dict(color=color, width=2)))

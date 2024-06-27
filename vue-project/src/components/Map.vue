@@ -1,19 +1,21 @@
 <template>
-  <div class="search-form-container">
-    <div class="search-form-header">
-      On va où ?
-    </div>
-    <div class="search-form">
-      <input type="text" v-model="from" placeholder="Start" />
-      <input type="text" v-model="to" placeholder="End" />
-      <div class="redirection_map">
-        <button class="Bouton" @click="fetchShortestPath">Go</button>
+  <div class="container">
+    <div class="search-form-container">
+      <div class="search-form-header">
+        On va où ?
+      </div>
+      <div class="search-form">
+        <input type="text" v-model="from" placeholder="Start" />
+        <input type="text" v-model="to" placeholder="End" />
+        <div class="redirection_map">
+          <button class="Bouton" @click="fetchShortestPath">Go</button>
+        </div>
       </div>
     </div>
-  </div>
-  <div v-if="url"> 
-    <object :data="url" width="800px" height="600px" style="overflow:auto;border:5px ridge blue">
-    </object>
+    <div v-if="url" class="map-output"> 
+      <object :data="url" width="800px" height="600px" style="overflow:auto;border:5px ridge blue">
+      </object>
+    </div>
   </div>
 </template>
 
@@ -35,8 +37,33 @@ export default {
 </script>
 
 <style scoped>
-#graph-container {
-  width: 100%;
-  height: 600px; /* Définir une hauteur fixe pour tester */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.search-form-container, .map-output {
+  flex: 1; /* Permet aux enfants de prendre une largeur égale */
+}
+
+/* Ajustez selon vos besoins pour un meilleur rendu */
+.search-form-container {
+  padding-right: 20px; /* Ajoute un peu d'espace entre les deux colonnes */
+}
+
+.map-output {
+  padding-left: 20px; /* Ajoute un peu d'espace entre les deux colonnes */
+}
+
+.search-form-header {
+  margin-top: 0; /* Assurez-vous qu'il n'y a pas d'espace au-dessus du header */
+  margin-bottom: 20px; /* Ajoutez un espace entre le header et le formulaire si nécessaire */
+}
+
+.search-form-container {
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px; /* Ajustez selon vos besoins */
 }
 </style>
