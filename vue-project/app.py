@@ -1,17 +1,12 @@
 from flask import Flask, jsonify, request, send_file, current_app, send_from_directory
-import pymysql
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import io
-import os
-import pymysql.cursors
+from flask_cors import CORS 
+
+import pymysql, pymysql.cursors
+
 import networkx as nx
-from plotly.io import to_html
+
+from plotly.io import to_html as go
 import plotly.graph_objects as go
-from flask import Flask, jsonify
-import plotly.graph_objects as go
-from flask_cors import CORS  # Ajoutez cette ligne
 
 
 app = Flask(__name__)
@@ -22,10 +17,10 @@ def home():
 
 
 def get_db_connection():
-    return pymysql.connect(host='localhost', user='root', password='/An62-Da53', db='metro', cursorclass=pymysql.cursors.DictCursor)
+    return pymysql.connect(host='localhost', user='root', password='louka', db='metro', cursorclass=pymysql.cursors.DictCursor)
 
 def get_db_connection2(): 
-    return pymysql.connect(host='localhost', user='root', password='/An62-Da53', db='metro')# sans cursorclass=pymysql.cursors.DictCursor pour l'api map et line
+    return pymysql.connect(host='localhost', user='root', password='louka', db='metro')# sans cursorclass=pymysql.cursors.DictCursor pour l'api map et line
 
 @app.route('/api/stations', methods=['GET'])
 def get_stations():
@@ -327,6 +322,15 @@ def get_shortest_path_info():
         if info:
             stations_info.append(info)
 
+
+    # Supprimer la première station si elle est identique à la deuxième
+    if len(stations_info) > 1 and stations_info[0][0]['station_name'] == stations_info[1][0]['station_name']:
+        stations_info.pop(0)
+        
+    # Supprimer la dernière station si elle est identique à l'avant-dernière
+    if len(stations_info) > 1 and stations_info[-1][0]['station_name'] == stations_info[-2][0]['station_name']:
+        stations_info.pop()
+
     print("Informations des stations sur le chemin:")# afficher les informations des stations sur le chemin
     for station in stations_info:
         print(station)
@@ -435,16 +439,3 @@ def get_shortest_path_info():
 
 if __name__ == '__main__':
     app.run(debug=True)
-    # result = find_shortest_path('21', '89')
-    # print(result)
-    # station_name = "Bercy"
-    # station_id = get_station_id(station_name)
-
-    # if station_id:
-    #     print(f"L'identifiant de la station '{station_name}' est : {station_id}")
-    # else:
-    #     print(f"Aucune station trouvée avec le nom '{station_name}'")
-    # station_id = '123'  # Remplacez par l'ID de la station souhaitée
-    # station_info = get_station_info_by_id(station_id)
-    # print(station_info)
-   

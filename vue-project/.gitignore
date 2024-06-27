@@ -16,6 +16,10 @@ coverage
 
 /cypress/videos/
 /cypress/screenshots/
+<<<<<<< HEAD
+Version2-3/
+=======
+>>>>>>> a879609e02428d3f6a3b9e84a0e206770d2e795f
 
 # Editor directories and files
 .vscode/*

@@ -5,7 +5,7 @@ import re
 db = pymysql.connect(
     host="localhost",
     user="root",
-    password="/An62-Da53",
+    password="louka",
     database="metro",
     charset='utf8mb4',
     cursorclass=pymysql.cursors.DictCursor
@@ -76,12 +76,11 @@ try:
             cursor.execute("SELECT num_sommet FROM Stations WHERE nom_sommet = %s", (pospoint_station_name['station_name'],))
             station_ids = [row['num_sommet'] for row in cursor.fetchall()]
             
-            # Créer un ensemble pour suivre les station_ids déjà assignés
+            
             assigned_station_ids = set()
 
             # Associer chaque Pospoint à un station_id unique, dans la mesure du possible
             for pospoint in pospoints:
-                # Trouver le premier station_id non encore assigné
                 station_id_to_assign = None
                 for station_id in station_ids:
                     if station_id not in assigned_station_ids:
@@ -89,11 +88,11 @@ try:
                         break
                 
                 if station_id_to_assign is not None:
+
                     # Si un station_id non assigné est trouvé, l'assigner et le marquer comme assigné
                     assigned_station_ids.add(station_id_to_assign)
                     cursor.execute("UPDATE Pospoints SET station_ids = %s WHERE id = %s", (station_id_to_assign, pospoint['id']))
-                # Note: Si aucun station_id non assigné n'est trouvé, le Pospoint ne sera pas mis à jour. 
-                # Vous pouvez ajouter une logique supplémentaire ici si nécessaire.
+                
         db.commit()
 
         cursor.execute("DELETE FROM Pospoints WHERE station_ids IS NULL")
@@ -113,7 +112,6 @@ try:
 
             # Associer chaque Pospoint à un lignes_id unique, dans la mesure du possible
             for pospoint in pospoints:
-                # Trouver le premier lignes_id non encore assigné
                 lignes_id_to_assign = None
                 for lignes_id in lignes_ids:
                     if lignes_id not in assigned_lignes_ids:
@@ -124,12 +122,11 @@ try:
                     # Si un lignes_id non assigné est trouvé, l'assigner et le marquer comme assigné
                     assigned_lignes_ids.add(lignes_id_to_assign)
                     cursor.execute("UPDATE Pospoints SET lignes_ids = %s WHERE id = %s", (lignes_id_to_assign, pospoint['id']))
-                # Note: Si aucun lignes_id non assigné n'est trouvé, le Pospoint ne sera pas mis à jour. 
-                # Vous pouvez ajouter une logique supplémentaire ici si nécessaire.
         db.commit()
 
         # Ajouter des arêtes entre chaque quai de la même station s'ils n'existent pas déjà
         for pospoint_station_name in pospoints_station_names:
+            
             # Récupérer tous les station_ids pour ce nom de station
             cursor.execute("SELECT station_ids FROM Pospoints WHERE station_name = %s", (pospoint_station_name['station_name'],))
             station_ids = [row['station_ids'] for row in cursor.fetchall()]
