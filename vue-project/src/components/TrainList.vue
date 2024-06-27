@@ -2,16 +2,22 @@
   <div class="Global">
     <p> </p>
     <div class="fond">
-      <div class="search-form-container">
-        <div class="search-form-header">
-          On va où ?
-        </div>
-        <div class="search-form">
-          <input type="text" v-model="from" placeholder="Start" />
-          <input type="text" v-model="to" placeholder="End" />
-          <div class="redirection_map">
-            <a  class = "Bouton" href="/map">Go</a>
+      <div class="container">
+        <div class="search-form-container">
+          <div class="search-form-header">
+            On va où ?
           </div>
+          <div class="search-form">
+            <input type="text" v-model="from" placeholder="Start" />
+            <input type="text" v-model="to" placeholder="End" />
+            <div class="redirection_map">
+              <button class="Bouton" @click="fetchShortestPath">Go</button>
+            </div>
+          </div>
+        </div>
+        <div v-if="url" class="map-output"> 
+          <object :data="url" width="800px" height="600px" style="overflow:auto;border:5px ridge blue">
+          </object>
         </div>
       </div>
       <div class="text">
@@ -80,28 +86,36 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
       from: '',
-      to: ''
+      to: '',
+      url: ''
     };
   },
-  methods: {
-    go() {
-      this.$router.push({ name: 'Results', params: { from: this.from, to: this.to } });
+  methods: { 
+    fetchShortestPath() {
+      this.url = `http://127.0.0.1:5000/api/shortest_path_info?start_station_name=${this.from}&end_station_name=${this.to}`;
     }
   }
 };
 </script>
 
 <style>
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
 .search-form-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: auto;
+  padding-right: 20px; /* Ajustez selon vos besoins */
+  
+  
   padding: 20px;
   background-color: #A7C7E7;
   border-radius: 10px;
@@ -117,6 +131,8 @@ export default {
   width: 100%;
   text-align: center;
   border-radius: 10px 10px 0 0;
+  margin-top: 0; /* Assurez-vous qu'il n'y a pas d'espace au-dessus du header */
+  margin-bottom: 20px; /* Ajoutez un espace entre le header et le formulaire si nécessaire */
 }
 
 .search-form {
@@ -230,4 +246,6 @@ export default {
 .fond {
   background-color: white;
 }
+
+
 </style>
