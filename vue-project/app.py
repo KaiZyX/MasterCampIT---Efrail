@@ -21,10 +21,10 @@ def home():
 
 
 def get_db_connection():
-    return pymysql.connect(host='localhost', user='root', password='louka', db='metro', cursorclass=pymysql.cursors.DictCursor)
+    return pymysql.connect(host='localhost', user='root', password='Florian1!', db='metro', cursorclass=pymysql.cursors.DictCursor)
 
 def get_db_connection2(): 
-    return pymysql.connect(host='localhost', user='root', password='louka', db='metro')# sans cursorclass=pymysql.cursors.DictCursor pour l'api map et line
+    return pymysql.connect(host='localhost', user='root', password='Florian1!', db='metro')# sans cursorclass=pymysql.cursors.DictCursor pour l'api map et line
 
 @app.route('/api/stations', methods=['GET'])
 def get_stations():
