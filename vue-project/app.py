@@ -34,8 +34,6 @@ def get_stations():
 
 
 
-
-
 # Affiche le graphique de toutes les lignes de metro
 @app.route('/api/map', methods=['GET'])
 def get_map():
