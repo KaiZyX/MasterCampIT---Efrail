@@ -187,4 +187,155 @@ export default {
 .suggestions-list li:hover {
   background-color: #f0f0f0;
 }
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.search-form-container {
+  display: flex;
+  flex-direction: column;
+  padding-right: 20px; /* Ajustez selon vos besoins */
+  
+  
+  padding: 20px;
+  background-color: #c9e4fe;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 350px; /* Limitez la largeur du conteneur */
+  margin: 20px auto; /* Centre le conteneur horizontalement */
+}
+.search-form-header {
+  background-color: #647fa9; /* Bleu plus foncé */
+  color: white;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  margin-top: 0; /* Assurez-vous qu'il n'y a pas d'espace au-dessus du header */
+  margin-bottom: 20px; /* Ajoutez un espace entre le header et le formulaire si nécessaire */
+}
+.search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #c9e4fe;
+  padding: 20px;
+  border-radius: 0 0 10px 10px;
+}
+.search-form input {
+  margin: 5px;
+  padding: 10px;
+  width: 300px;
+}
+.redirection_map {
+  margin: 10px;
+}
+.Bouton {
+  padding: 10px 20px;
+  background-color: #ff7f50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.Bouton:hover {
+  background-color: #7dbac8;
+}
+.img1 {
+  width: 500px;
+  height: 400px;
+}
+.img3 {
+  width: 500px;
+  height: 400px;
+}
+.h55 {
+  color: black;
+}
+.img2 {
+  width: 1000px;
+  height: 400px;
+}
+.coll1 {
+  background-color: #86bcf1;
+}
+.redirection_map {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.map-output {
+  margin-bottom: 40px; /* Ajoute de l'espace après la carte */
+}
+.Global {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.Bouton {
+  text-align: center;
+  background-color: #f5f5f5;
+  color: black;
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+.text {
+  font-size: 18px;
+  text-align: center;
+}
+.carousel-control-prev {
+  background-color: #A7C7E7;
+}
+.carousel-control-prev-icon {
+  background-color: #A7C7E7;
+}
+.carousel-control-next-icon {
+  background-color: #A7C7E7;
+}
+.carousel-control-next {
+  background-color: #A7C7E7;
+}
+.carousel-inner {
+  max-width: 500px;
+  margin: 0 auto;
+}
+.ok {
+  margin-top: 100px;
+  background-color: rgb(187, 145, 145);
+  font-size: 25px;
+}
+.fond {
+  background-color: rgb(255, 255, 255);
+}
+.table {
+  width: 80%; /* Ajustez la largeur du tableau */
+  margin: 20px auto; /* Centrer le tableau et ajouter de l'espace autour */
+  border-collapse: collapse; /* Supprime les espaces entre les cellules */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Ajoute une ombre pour un effet de profondeur */
+}
+.table th, .table td {
+  padding: 15px; /* Ajustez l'espacement à l'intérieur des cellules */
+  text-align: left; /* Alignement du texte */
+  border-bottom: 1px solid #ddd; /* Ligne de séparation */
+}
+.table th {
+  background-color: #9bcdff; /* Couleur de fond pour les en-têtes */
+  color: white; /* Couleur du texte pour les en-têtes */
+}
+.table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Couleur de fond pour les lignes paires */
+}
+.table tr:hover {
+  background-color: #ddd; /* Couleur de fond au survol */
+}
+.table td {
+  color: #333; /* Couleur du texte pour les cellules */
+}
+/* Ajoutez cette classe si elle n'existe pas déjà */
+.coll1, .table th:not(.coll1), .table td {
+  background-color: #fff; /* Couleur de fond uniforme pour toutes les cellules */
+}
 </style>
