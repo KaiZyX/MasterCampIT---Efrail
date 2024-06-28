@@ -17,19 +17,21 @@ def home():
 
 
 def get_db_connection():
-    return pymysql.connect(host='localhost', user='root', password='louka', db='metro', cursorclass=pymysql.cursors.DictCursor)
+    return pymysql.connect(host='localhost', user='root', password='Florian1!', db='metro', cursorclass=pymysql.cursors.DictCursor)
 
 def get_db_connection2(): 
-    return pymysql.connect(host='localhost', user='root', password='louka', db='metro')# sans cursorclass=pymysql.cursors.DictCursor pour l'api map et line
+    return pymysql.connect(host='localhost', user='root', password='Florian1!', db='metro')# sans cursorclass=pymysql.cursors.DictCursor pour l'api map et line
 
 @app.route('/api/stations', methods=['GET'])
 def get_stations():
+    query = request.args.get('query')
     connection = get_db_connection()
     with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM Stations')
+        cursor.execute('SELECT nom_sommet FROM Stations WHERE nom_sommet LIKE %s LIMIT 10', (f'{query}%',))
         stations = cursor.fetchall()
     connection.close()
-    return jsonify(stations)
+    return jsonify([station['nom_sommet'] for station in stations])
+
 
 
 
