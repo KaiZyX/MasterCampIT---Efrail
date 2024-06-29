@@ -13,7 +13,7 @@ def connect_db():
     return pymysql.connect(
         host="localhost",
         user="root",
-        password="louka",
+        password="Florian1!",
         database="metrogtfs",
         charset='utf8mb4',
         cursorclass=pymysql.cursors.DictCursor
@@ -212,6 +212,7 @@ def get_station_info_by_id(station_id):
         connection.close()
 
 # Fonction pour récupérer l'identifiant de la station à partir de son nom
+@app.route('/stations', methods=['GET'])
 def get_station_id(station_name):
     connection = connect_db()
     try:
