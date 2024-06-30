@@ -16,8 +16,8 @@
                       <li class="nav-item"><a class="nav-link" href="/Afflu">Heures d'affluences</a></li>
                       <li class="nav-item"><a class="nav-link" href="/Env">Environnement</a></li>
                       <li class="nav-item"><a class="nav-link" href="/Cons">Conseil</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/Map">V1</a></li>
-                      
+                      <li class="nav-item"><a class="nav-link" href="/Map">Version 1</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/Stat">Les stations</a></li>
                       
                       
                   </ul>

@@ -438,4 +438,4 @@ def get_shortest_path_info():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=8000)

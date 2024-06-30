@@ -65,13 +65,15 @@ export default {
   },
   methods: {
     fetchShortestPath() {
-      this.url = `http://127.0.0.1:5000/api/shortest_path_info?start_station_name=${this.from}&end_station_name=${this.to}`;
+      const startStation = encodeURIComponent(this.from);
+      const endStation = encodeURIComponent(this.to);
+      this.url = `http://127.0.0.1:8000/api/shortest_path_info?start_station_name=${this.from}&end_station_name=${this.to}`;
     },
     async getSuggestions(inputId) {
       const inputVal = this[inputId];
       if (inputVal.length >= 3) {
         try {
-          const response = await fetch(`http://127.0.0.1:5000/api/stations?query=${inputVal}`);
+          const response = await fetch(`http://127.0.0.1:8000/api/stations?query=${inputVal}`);
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }

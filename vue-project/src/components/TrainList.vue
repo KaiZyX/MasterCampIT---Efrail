@@ -3,54 +3,53 @@
       <p> </p>
       <div class="fond">
         <div class="container">
-          <div class="search-form-container">
-            <div class="search-form-header">
-              On va où ?
-            </div>
-            <div class="search-form">
-              <input
-                type="text"
-                id="from"
-                v-model="from"
-                placeholder="Start"
-                @input="getSuggestions('from')"
-              />
-              <ul v-if="fromSuggestions.length" class="suggestions-list">
-                <li
-                  v-for="suggestion in fromSuggestions"
-                  :key="suggestion"
-                  @click="selectSuggestion('from', suggestion)"
-                >
-                  {{ suggestion }}
-                </li>
-              </ul>
-              <input
-                type="text"
-                id="to"
-                v-model="to"
-                placeholder="End"
-                @input="getSuggestions('to')"
-              />
-              <ul v-if="toSuggestions.length" class="suggestions-list">
-                <li
-                  v-for="suggestion in toSuggestions"
-                  :key="suggestion"
-                  @click="selectSuggestion('to', suggestion)"
-                >
-                  {{ suggestion }}
-                </li>
-              </ul>
-              <div class="redirection_map">
-                <button class="Bouton" @click="shortest_path">Go</button>
-              </div>
-            </div>
-          </div>
-          <div v-if="url" class="map-output">
-            <object :data="url" width="800px" height="600px" style="overflow:auto;border:5px ridge lightblue">
-            </object>
-          </div>
+    <div class="search-form-container">
+      <div class="search-form-header">
+        On va où ?
+      </div>
+      <div class="search-form">
+        <input
+          type="text"
+          id="from"
+          v-model="from"
+          placeholder="Départ"
+          @input="getSuggestions('from')"
+        />
+        <ul v-if="fromSuggestions.length" class="suggestions-list">
+          <li
+            v-for="suggestion in fromSuggestions"
+            :key="suggestion"
+            @click="selectSuggestion('from', suggestion)"
+          >
+            {{ suggestion }}
+          </li>
+        </ul>
+        <input
+          type="text"
+          id="to"
+          v-model="to"
+          placeholder="Arrivée"
+          @input="getSuggestions('to')"
+        />
+        <ul v-if="toSuggestions.length" class="suggestions-list">
+          <li
+            v-for="suggestion in toSuggestions"
+            :key="suggestion"
+            @click="selectSuggestion('to', suggestion)"
+          >
+            {{ suggestion }}
+          </li>
+        </ul>
+        <div class="redirection_map">
+          <button class="Bouton" @click="fetchShortestPath">Go</button>
         </div>
-
+      </div>
+    </div>
+    <div v-if="url" class="map-output">
+      <object :data="url" width="800px" height="600px" style="overflow:auto;border:5px ridge lightblue">
+      </object>
+    </div>
+  </div>
 
 
        
@@ -125,60 +124,63 @@
     </div>
   </template>
 
-  <script>
-  import $ from 'jquery';
+<script>
+import axios from 'axios';
 
-  export default {
-    data() {
-      return {
-        from: '',
-        to: '',
-        fromSuggestions: [],
-        toSuggestions: [],
-        url: ''
-      };
-    },
-    methods: {
-      fetchShortestPath() {
-        this.url = `http://127.0.0.1:5000/api/shortest_path_info?start_station_name=${this.from}&end_station_name=${this.to}`;
-      },
-      shortest_path(){
-    this.url = `http://127.0.0.1:5000/shortest_path?start_station=${this.from}&end_station=${this.to}`;
-
+export default {
+  data() {
+    return {
+      from: '',
+      to: '',
+      url: '',
+      fromSuggestions: [],
+      toSuggestions: []
+    };
   },
-      getSuggestions(inputId) {
-        const inputVal = this[inputId];
-        if (inputVal.length >= 3) {
-          $.ajax({
-            url: `http://127.0.0.1:5000/stations?query=${inputVal}`,
-            method: 'GET',
-            success: (data) => {
-              if (inputId === 'from') {
-                this.fromSuggestions = data;
-              } else {
-                this.toSuggestions = data;
-              }
-            }
-          });
-        } else {
+  methods: {
+    fetchShortestPath() {
+      const startStation = encodeURIComponent(this.from);
+      const endStation = encodeURIComponent(this.to);
+      this.url = `http://127.0.0.1:5000/shortest_path?start_station=${startStation}&end_station=${endStation}`;
+    },
+    async getSuggestions(inputId) {
+      const inputVal = this[inputId];
+      if (inputVal.length >= 3) {
+        try {
+          const response = await axios.get(`http://127.0.0.1:8000/api/stations?query=${inputVal}`);
+          if (inputId === 'from') {
+            this.fromSuggestions = response.data;
+          } else {
+            this.toSuggestions = response.data;
+          }
+        } catch (error) {
+          console.error('Error fetching suggestions:', error);
           if (inputId === 'from') {
             this.fromSuggestions = [];
           } else {
             this.toSuggestions = [];
           }
         }
-      },
-      selectSuggestion(inputId, suggestion) {
-        this[inputId] = suggestion;
+      } else {
         if (inputId === 'from') {
           this.fromSuggestions = [];
         } else {
           this.toSuggestions = [];
         }
       }
+    },
+    selectSuggestion(inputId, suggestion) {
+      this[inputId] = suggestion;
+      if (inputId === 'from') {
+        this.fromSuggestions = [];
+      } else {
+        this.toSuggestions = [];
+      }
     }
-  };
-  </script>
+  }
+};
+</script>
+
 
   <style scoped>
   .suggestions-list {
@@ -191,7 +193,8 @@
     background-color: #fff;
     position: absolute;
     z-index: 1000;
-    width: calc(100% - 20px); /* Ajustez la largeur pour correspondre à vos entrées */
+    width: calc(100% - 20px); 
+    max-width: 300px;/* Ajustez la largeur pour correspondre à vos entrées */
   }
 
   .suggestions-list li {

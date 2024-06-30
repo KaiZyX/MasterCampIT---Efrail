@@ -282,7 +282,27 @@ def find_shortest_path(start_station, end_station):
         return {"error": "No path found between the specified stations"}
 
 
+# Endpoint pour la suggestion de stations
+@app.route('/suggestion', methods=['GET'])
+def suggestion():
+    query = request.args.get('query')
+    if not query or len(query) < 3:
+        return jsonify([])  # Retourne une liste vide si la requête est vide ou moins de 3 caractères
 
+    # Requête SQL pour récupérer les stations
+    connection = connect_db()  # Supposons que connect_db() soit une fonction de connexion à la base de données
+    try:
+        with connection.cursor() as cursor:
+            sql = "SELECT nom_sommet FROM Stations WHERE nom_sommet LIKE %s"
+            cursor.execute(sql, (f"{query}%",))
+            stations = [row['nom_sommet'] for row in cursor.fetchall()]
+    except pymysql.MySQLError as e:
+        print(f"Erreur MySQL lors de la récupération des stations : {e}")
+        return jsonify([]), 500
+    finally:
+        connection.close()
+
+    return jsonify(stations)
 
 # API endpoint pour obtenir le chemin le plus court entre deux stations par leur nom
 @app.route('/shortest_path', methods=['GET'])
