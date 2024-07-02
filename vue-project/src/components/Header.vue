@@ -13,13 +13,12 @@
               <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav ml-auto">
                       <li class="nav-item"><a class="nav-link" href="/">Accueil</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/Afflu">Heures d'affluences</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/Env">Environnement</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/Cons">Conseil</a></li>
                       <li class="nav-item"><a class="nav-link" href="/Map">Version 1</a></li>
                       <li class="nav-item"><a class="nav-link" href="/Stat">Les lignes de métros</a></li>
                       <li class="nav-item"><a class="nav-link" href="/Station">Les stations de Paris</a></li>
-                      
+                      <li class="nav-item"><a class="nav-link" href="/Afflu">Heures d'affluences</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/Env">Environnement</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/Cons">Conseil</a></li>
                       
                   </ul>
               </div>
