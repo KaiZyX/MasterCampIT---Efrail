@@ -5,7 +5,7 @@ import re
 db = pymysql.connect(
     host="localhost",
     user="root",
-    password="Florian1!",
+    password="louka",
     database="metro",
     charset='utf8mb4',
     cursorclass=pymysql.cursors.DictCursor
