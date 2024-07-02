@@ -69,9 +69,9 @@ def generate_map():
     # Ajouter des marqueurs pour chaque station
     for index, row in stations_df.iterrows():
         folium.CircleMarker(
-                            location=[float(station['latitude']), float(station['longitude'])],
+                            location=[float(row['latitude']), float(row['longitude'])],
                             radius=5,  # Définit la taille du point. Ajustez selon les besoins
-                            popup=station['nom_sommet'],
+                            popup=row['nom_sommet'],
                             color='blue',  # Couleur du bord du cercle
                             fill=True,
                             fill_color='black'  # Couleur de remplissage du cercle
