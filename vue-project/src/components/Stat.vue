@@ -6,12 +6,11 @@
         </div>
         <div class="search-form">
           <input
-            type="number"
+            type="string"
             id="line"
             v-model="line"
             placeholder="Enter line number (1-14)"
-            min="1"
-            max="15"
+            
           />
           <div class="redirection_map">
             <button class="Bouton" @click="line_stations">Go</button>
@@ -35,11 +34,9 @@
     },
     methods: {
         line_stations() {
-        if (this.line >= 1 && this.line <= 14) {
-          this.url = `http://127.0.0.1:5000/line_stations/${this.line}`;
-        } else {
-          alert('Please enter a valid line number (1-14).');
-        }
+        
+        this.url = `http://127.0.0.1:5000/line_stations/${this.line}`;
+        
       },
     },
   };

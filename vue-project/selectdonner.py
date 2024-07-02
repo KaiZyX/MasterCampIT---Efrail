@@ -2,6 +2,8 @@ from flask import Flask, jsonify, send_file, request
 import pymysql
 import pandas as pd
 import folium
+import branca
+import math
 import os
 import networkx as nx
 
@@ -311,6 +313,32 @@ def suggestion():
 
     return jsonify(stations)
 
+
+# Définir une fonction pour ajouter une légende personnalisée à une carte Folium
+def add_legend(map_object, duration_seconds):
+    # Convertir la durée de secondes en minutes
+    duration_minutes = duration_seconds / 60
+    duration_minutes = math.ceil(duration_minutes)  # Arrondir à l'entier supérieur
+
+    legend_html = f'''
+     <div style="
+     position: fixed; 
+     bottom: 50px; left: 50px; width: auto; height: auto; 
+     background-color: rgba(255, 255, 255, 0.8); 
+     border: 2px solid #4CAF50; 
+     border-radius: 5px; 
+     padding: 10px; 
+     box-shadow: 2px 2px 5px rgba(0,0,0,0.3); 
+     z-index:9999; 
+     font-size: 14px; 
+     font-family: Arial, sans-serif;
+     color: #333;
+     ">
+     <b>Durée du trajet:</b> {duration_minutes} minute(s)
+     </div>
+     '''
+    map_object.get_root().html.add_child(branca.element.Element(legend_html))
+
 # API endpoint pour obtenir le chemin le plus court entre deux stations par leur nom
 @app.route('/shortest_path', methods=['GET'])
 def shortest_path():
@@ -326,6 +354,7 @@ def shortest_path():
 
     # Trouver le chemin le plus court entre les stations
     result = find_shortest_path(start_station_id, end_station_id)
+    duration = result["duration"]
 
     if 'error' in result:
         return result, 404
@@ -409,6 +438,9 @@ def shortest_path():
             print(f"Erreur MySQL lors de la récupération des arêtes entre les stations : {e}")
         finally:
             connection.close()
+
+    # Ajouter la légende à la carte
+    add_legend(m, duration)
 
     # Enregistrer la carte dans un fichier HTML temporaire
     map_file = 'shortest_path_map.html'
