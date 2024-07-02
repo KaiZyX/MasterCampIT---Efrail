@@ -68,11 +68,14 @@ def generate_map():
 
     # Ajouter des marqueurs pour chaque station
     for index, row in stations_df.iterrows():
-        folium.Marker(
-            location=[float(row['latitude']), float(row['longitude'])],
-            popup=row['nom_sommet']
-        ).add_to(m)
-
+        folium.CircleMarker(
+                            location=[float(station['latitude']), float(station['longitude'])],
+                            radius=5,  # Définit la taille du point. Ajustez selon les besoins
+                            popup=station['nom_sommet'],
+                            color='blue',  # Couleur du bord du cercle
+                            fill=True,
+                            fill_color='black'  # Couleur de remplissage du cercle
+                        ).add_to(m)
     # Ajouter des lignes entre les stations à partir des Aretes
     for index, row in aretes_df.iterrows():
         station1 = stations_df[stations_df['num_sommet'] == row['num_sommet1']].iloc[0]
@@ -154,10 +157,14 @@ def line_stations(line_number):
         for sommet in [row['num_sommet1'], row['num_sommet2']]:
             if sommet not in added_stations:
                 station = stations_df[stations_df['num_sommet'] == sommet].iloc[0]
-                folium.Marker(
-                    location=[float(station['latitude']), float(station['longitude'])],
-                    popup=station['nom_sommet']
-                ).add_to(m)
+                folium.CircleMarker(
+                            location=[float(station['latitude']), float(station['longitude'])],
+                            radius=5,  # Définit la taille du point. Ajustez selon les besoins
+                            popup=station['nom_sommet'],
+                            color='blue',  # Couleur du bord du cercle
+                            fill=True,
+                            fill_color='black'  # Couleur de remplissage du cercle
+                        ).add_to(m)
                 added_stations.add(sommet)
 
     # Ajouter des lignes entre les stations à partir des Aretes
@@ -336,14 +343,17 @@ def shortest_path():
                     sql = "SELECT * FROM Stations WHERE num_sommet = %s"
                     cursor.execute(sql, (sommet,))
                     station = cursor.fetchone()
-
+    
                     if station:
-                        folium.Marker(
+                        folium.CircleMarker(
                             location=[float(station['latitude']), float(station['longitude'])],
-                            popup=station['nom_sommet']
+                            radius=5,  # Définit la taille du point. Ajustez selon les besoins
+                            popup=station['nom_sommet'],
+                            color='blue',  # Couleur du bord du cercle
+                            fill=True,
+                            fill_color='black'  # Couleur de remplissage du cercle
                         ).add_to(m)
                         added_stations.add(sommet)
-
             except pymysql.MySQLError as e:
                 print(f"Erreur MySQL lors de la récupération des informations de la station : {e}")
             finally:
