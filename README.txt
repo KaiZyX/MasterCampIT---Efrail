@@ -146,7 +146,7 @@ DELIMITER ;
 ============================================================================================
 Version 2-3
 Les fichiers agency.txt, calendar.txt, calendar_dates.txt, pathways.txt, routes.txt, stops.txt, stop_extensions.txt, stop_times.txt, transfers.txt, trips.txt contiennent les données nécessaires pour les versions 2-3 du projet. 
-Vous devez les deposer a l'interieur du dossier, je ne peux vous les fournir trop volumineux pour github.   
+Dans certains cas les données peuvdnt etre deja a l'interieur cela signifie que vous n'aurez meme pas besoi  de les nettoyer sinon , vous devez les deposer a l'interieur du dossier et je ne peux vous les fournir trop volumineux pour github.   
 
 Structure de la Base de Données
 ============================================================================================
@@ -209,10 +209,18 @@ Version 1
 Exécutez db.py pour insérer toutes les données de la version 1 dans MySQL.
 Lancez app.py pour démarrer la version 1 de l'application.
 ============================================================================================
-Version 2-3
-Ouvrez cleandb-version2-3.ipynb et exécutez les cellules une par une pour bien nettoyer toutes les données.
-Exécutez db2.py pour insérer toutes les données de la version 2-3 dans MySQL. Ce processus peut prendre 15-20 minutes.
-Lancez app2.py pour démarrer la version 2-3 de l'application.
+Si tous les fichiers nécessaires sont déjà présents dans le dossier et qu'ils ont été nettoyés, vous pouvez vérifier simplement les fichiers suivants :
+
+Pour agency.txt, il devrait y avoir exactement 2 lignes.
+Pour stop_times, il devrait y avoir environ 762,050 lignes.
+Si ces conditions sont remplies, vous pouvez arrêter l'étape suivante.
+
+En cas de présence de données mais qui ne respectent pas les critères mentionnés ci-dessus, veuillez ouvrir le fichier cleandb-version2-3.ipynb et exécuter les cellules une par une pour nettoyer correctement toutes les données.
+
+Ensuite, exécutez db2.py pour insérer toutes les données de la version 2-3 dans MySQL. Ce processus peut prendre entre 15 à 20 minutes.
+
+Enfin, lancez app2.py pour démarrer la version 2-3 de l'application.
+============================================================================================
 Lancement de l'Interface Web
 ============================================================================================
 Accédez au dossier vue-projet.
