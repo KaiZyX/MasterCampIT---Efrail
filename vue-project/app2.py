@@ -360,14 +360,25 @@ def suggestion():
     return jsonify(stations)
 
 
+# Valeurs des émissions de CO2 par minute pour chaque type de transport
+CO2_PER_MINUTE_METRO = 1.5
+CO2_PER_MINUTE_CAR = 132.5
+CO2_PER_MINUTE_PLANE = 1350
+
 def add_legend(map_object, duration_seconds, stations_list):
     # Convertir la durée de secondes en minutes
     duration_minutes = duration_seconds / 60
     duration_minutes = math.ceil(duration_minutes)  # Arrondir à l'entier supérieur
 
+    # Calculer les émissions de CO2 pour chaque type de transport
+    co2_metro = duration_minutes * CO2_PER_MINUTE_METRO
+    co2_car = duration_minutes * CO2_PER_MINUTE_CAR
+    co2_plane = duration_minutes * CO2_PER_MINUTE_PLANE
+
     # Générer stations_text pour afficher les stations et les lignes en une seule ligne
     stations_text = "".join(stations_list)
 
+    # HTML pour la légende
     legend_html = f'''
     <div style="
     position: fixed; 
@@ -380,12 +391,12 @@ def add_legend(map_object, duration_seconds, stations_list):
     font-size: 14px; 
     font-family: Arial, sans-serif;
     color: #333;
-    text-align: center;  <!-- Centrer le contenu -->
+    text-align: center;
     ">
     <b>Chemin le plus court:</b><br>
-    <b>Durée:</b> {duration_minutes} minute(s)<br>
+    <p><b>Durée:</b> {duration_minutes} minute(s) &nbsp;|&nbsp; <b>Émissions de CO₂ :</b> Métro: {co2_metro:.2f} g, Voiture thermique: {co2_car:.2f} g, Avion: {co2_plane:.2f} g</p>
     <b>Stations et lignes:</b><br>
-    <div style="font-size: 12px; display: inline-block; text-align: left;">  <!-- Garder le texte aligné à gauche -->
+    <div style="font-size: 12px; display: inline-block; text-align: left;">  
     {stations_text}
     </div>
     </div>

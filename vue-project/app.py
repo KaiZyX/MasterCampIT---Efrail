@@ -436,7 +436,5 @@ def get_shortest_path_info():
     
     return graph_html
 
-
-
 if __name__ == '__main__':
     app.run(port=8000)
